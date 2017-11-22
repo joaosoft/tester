@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: ./sbin/docker/dev-alpine.dockerfile
+    command: run ./bin/main.go
+    volumes:
+      - esdata1:/go-test
+    environment:
+      - ENV=dev
+    ports:
+      - 8080:8080
+      - 8081:8081
+      - 8082:8082
+      
+  redis:
+    image: redis:3.0-alpine
+    ports:
+      - 6379:6379
+
+volumes:
+  esdata1:
+    driver: local

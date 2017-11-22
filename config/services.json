@@ -1,0 +1,165 @@
+{
+  "redis": [
+    {
+      "configuration": {
+        "protocol": "tcp",
+        "addr": "localhost:6379",
+        "size": 10
+      },
+      "commands": [
+        {
+          "command": "DEL",
+          "arguments": ["P:10000000-0000-0000-0000-000000000001"]
+        }
+      ]
+    }
+  ],
+  "webservices": [
+    {
+      "name": "productoffers",
+      "host": ":8081",
+      "routes": [
+        {
+          "description": "creating web mock services for metadata",
+          "method": "GET",
+          "route": "/api/1/retekmeta/10000000-0000-0000-0000-000000000001/channels/92ac4b66-da0f-47f6-81ee-48d9dc2598a3",
+          "response": {
+            "status": 200,
+            "body": {
+              "product_data":{
+                "retek_dept":"0790",
+                "retek_class":"12",
+                "retek_subclass":"45",
+                "retek_width":"10.9",
+                "retek_height":"20.2",
+                "retek_length":"3.1",
+                "retek_weight":"4.2"
+              },
+              "price_data":{
+                "retek_vat_code":"030"
+              },
+              "stock_data":{
+                "retek_source":"708",
+                "retek_source_type":"W"
+              }
+            }
+          }
+        },
+        {
+          "description": "creating web mock services for stock",
+          "method": "GET",
+          "route": "/api/1/inventory/10000000-0000-0000-0000-000000000001/channels/92ac4b66-da0f-47f6-81ee-48d9dc2598a3/availability",
+          "response": {
+            "status": 200,
+            "body": {
+              "offer_id": "10000000-0000-0000-0000-000000000001",
+              "channel_id": "92ac4b66-da0f-47f6-81ee-48d9dc2598a3",
+              "is_managed": true,
+              "is_in_stock": true,
+              "qty": 12
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "snavigation",
+      "host": ":8082",
+      "routes": [
+        {     
+          "description": "creating web mock service for seller",          
+          "method": "GET",
+          "route": "/api/1/sellers/689dda97-efa4-4c6d-96bc-6f4bbfda8394",
+          "response": {
+            "status": 200,
+            "body": {
+              "seller_id": "689dda97-efa4-4c6d-96bc-6f4bbfda8394",
+              "source_id": "1eb12c3f-768b-4968-8743-5df172042fa1",
+              "code": "retek",
+              "name": "Retek",
+              "logo": "",
+              "premium": true,
+              "channels": [{
+                "channel_id": "92ac4b66-da0f-47f6-81ee-48d9dc2598a3",
+                "code": "stuff",
+                "description": "stuff",
+                "active": true
+              }],
+              "rating": {
+                "rating": "stuff",
+                "evaluations": 1000
+              },
+              "status": {
+                "offers": 1,
+                "orders": 1
+              },
+              "updated_at": "2017-09-27T17:36:22.309120675Z"
+            }
+          }
+        },
+        {     
+          "description": "creating web mock service for offers",          
+          "method": "GET",
+          "route": "/api/1/channels/92ac4b66-da0f-47f6-81ee-48d9dc2598a3/products/10000000-0000-0000-0000-000000000001/offers",
+          "response": {
+            "status": 200,
+            "body": {
+              "offers": [
+                {
+                  "product_id":"10000000-0000-0000-0000-000000000001",
+                  "offer_id":"10000000-0000-0000-0000-000000000001",
+                  "channel_id":"92ac4b66-da0f-47f6-81ee-48d9dc2598a3",
+                  "source_id":"1eb12c3f-768b-4968-8743-5df172042fa1",
+                  "source_product_code":"5546523",
+                  "source_offer_code":"5546523",
+                  "seller_id":"689dda97-efa4-4c6d-96bc-6f4bbfda8394",
+                  "state":"available",
+                  "updated_at":"2017-09-27T17:36:22.309120675Z",
+                  "price":{"original":"12.99","final":"11.99"},
+                  "shipping":{"lead_time":"12","safety_time":"2"},
+                  "stock":{"is_in_stock":true}
+                },
+                {
+                  "product_id":"10000000-0000-0000-0000-000000000001",
+                  "offer_id":"10000000-0000-0000-0000-000000000002",
+                  "channel_id":"92ac4b66-da0f-47f6-81ee-48d9dc2598a3",
+                  "source_id":"1eb12c3f-768b-4968-8743-5df172042fa1",
+                  "source_product_code":"5546523",
+                  "source_offer_code":"5546522",
+                  "seller_id":"689dda97-efa4-4c6d-96bc-6f4bbfda8394",
+                  "state":"available",
+                  "updated_at":"2017-09-27T17:36:22.309120675Z",
+                  "price":{"original":"13.99","final":"9.99"},
+                  "shipping":{"lead_time":"10","safety_time":"4"},
+                  "stock":{"is_in_stock":false}
+                }
+              ]
+            }
+          }
+        },
+        {     
+          "description": "creating web mock service for offer",          
+          "method": "GET",
+          "route": "/api/1/offers/10000000-0000-0000-0000-000000000001",
+          "response": {
+            "status": 200,
+            "body": {
+              "product_id":"10000000-0000-0000-0000-000000000001",
+              "offer_id":"10000000-0000-0000-0000-000000000001",
+              "channel_id":"92ac4b66-da0f-47f6-81ee-48d9dc2598a3",
+              "source_id":"1eb12c3f-768b-4968-8743-5df172042fa1",
+              "source_product_code":"5546523",
+              "source_offer_code":"5546523",
+              "seller_id":"689dda97-efa4-4c6d-96bc-6f4bbfda8394",
+              "state":"available",
+              "updated_at":"2017-09-27T17:36:22.309120675Z",
+              "price":{"original":"12.99","final":"11.99"},
+              "shipping":{"lead_time":"12","safety_time":"2"},
+              "stock":{"is_in_stock":true}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
