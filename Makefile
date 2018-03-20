@@ -1,8 +1,8 @@
 env:
-	docker-compose up redis
+	docker-compose up -d redis postgres mysql manager nsqd nsqadmin
 
 run:
-	go run ./bin/main.go
+	go run ./bin/launcher/main.go
 
 start:
 	docker-compose build
@@ -13,3 +13,12 @@ stop:
 
 build:
 	go build .
+
+fmt:
+	go fmt ./...
+
+vet:
+	go vet ./*
+
+gometalinter:
+	gometalinter ./*

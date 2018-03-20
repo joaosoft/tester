@@ -1,0 +1,109 @@
+{
+  "description": "test 001",
+  "scenario": [
+    {
+      "files":["scenario001.json", "scenario002.json"]
+    },
+    {
+      "mocks": [
+        {
+          "files": ["mocks/mock001"],
+          "sql": [
+            {
+              "name": "postgres",
+              "description": "add users information",
+              "configuration": {
+                "driver": "postgres",
+                "datasource": "postgres://user:password@localhost:7001?sslmode=disable"
+              },
+              "run": {
+                "setup": {
+                  "queries": [
+                    "DROP TABLE IF EXISTS USERS",
+                    "CREATE TABLE USERS(name varchar(255), description varchar(255))",
+                    "INSERT INTO USERS(name, description) VALUES('joao', 'administrator')",
+                    "INSERT INTO USERS(name, description) VALUES('tiago', 'user')"
+                  ]
+                },
+                "teardown": {
+                  "queries": [
+                    "DROP TABLE IF EXISTS USERS"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "http": {
+        "description": "scenario 001",
+        "host": ":8080",
+        "method": "POST",
+        "route": "/test001",
+        "cookies": {},
+        "headers": {},
+        "body": {
+          "text": "apple"
+        }
+      },
+      "http": {
+        "description": "scenario 002",
+        "host": ":8081",
+        "method": "POST",
+        "route": "/test002",
+        "cookies": {},
+        "headers": {},
+        "file": "data/body001.json"
+      }
+    }
+  ],
+  "tests": [
+    {
+      "http": {
+        "description": "test http 001",
+        "host": ":8080",
+        "method": "GET",
+        "route": "/test001",
+        "cookies": {},
+        "headers": {},
+        "body": {},
+        "expected": {
+          "status": 200,
+          "body": {
+            "text": "apple"
+          }
+        }
+      },
+      "sql": {
+        "description": "test sql 002",
+        "host": ":8080",
+        "method": "GET",
+        "route": "/test001",
+        "cookies": {},
+        "headers": {},
+        "body": {},
+        "expected": {
+          "status": 200,
+          "body": {
+            "text": "apple"
+          }
+        }
+      },
+      "redis": {
+        "description": "test redis 003",
+        "host": ":8080",
+        "method": "GET",
+        "route": "/test001",
+        "cookies": {},
+        "headers": {},
+        "body": {},
+        "expected": {
+          "status": 200,
+          "body": {
+            "text": "apple"
+          }
+        }
+      }
+    }
+  ]
+}

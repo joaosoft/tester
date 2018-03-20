@@ -5,21 +5,71 @@ services:
     build:
       context: .
       dockerfile: ./sbin/docker/dev-alpine.dockerfile
-    command: run ./bin/main.go
+    command: run ./bin/launcher/main.go
     volumes:
-      - esdata1:/go-test
+      - esdata1:/go-mock
     environment:
       - ENV=dev
     ports:
-      - 8080:8080
-      - 8081:8081
-      - 8082:8082
+      - 8001:8001
+      - 8002:8002
       
   redis:
     image: redis:3.0-alpine
     ports:
       - 6379:6379
 
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - 7001:5432
+
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+        - 7002:3306
+
+  manager:
+    image: adminer
+    restart: always
+    ports:
+      - 9999:9999
+
+  nsqlookup:
+    image: nsqio/nsq
+    container_name: nsqlookup
+    hostname: nsqlookup
+    ports:
+      - 4160:4160
+      - 4161:4161
+    command: /nsqlookupd
+
+  nsqd:
+    image: nsqio/nsq
+    container_name: nsqd
+    ports:
+      - 4150:4150
+      - 4151:4151
+    links:
+      - nsqlookup:nsqlookup
+    command: /nsqd --lookupd-tcp-address=nsqlookup:4160
+
+  nsqadmin:
+    image: nsqio/nsq
+    container_name: nsqadmin
+    links:
+      - nsqlookup:nsqlookup
+    ports:
+      - 4171:4171
+    command: /nsqadmin --lookupd-http-address=nsqlookup:4161
 volumes:
   esdata1:
     driver: local
