@@ -1,27 +1,22 @@
 package gotest
 
 import (
-	"os"
-	"os/signal"
 	"path/filepath"
-	"syscall"
 
 	logger "github.com/joaosoft/go-log/service"
 )
 
-// GoMock ...
-type GoMock struct {
-	services   []*Services
-	runner     IRunner
-	background bool
+// GoTest ...
+type GoTest struct {
+	testFiles map[string]*TestFile
+	runner    IRunner
 }
 
 // NewGoMock ...make
-func NewGoMock(options ...GoMockOption) *GoMock {
-	log.Info("starting GoMock Service")
-	mock := &GoMock{
-		background: background,
-		services:   make([]*Services, 0),
+func NewGoMock(options ...GoTestOption) *GoTest {
+	log.Info("starting GoTest Service")
+	mock := &GoTest{
+		testFiles: make(map[string]*TestFile, 0),
 	}
 
 	global["path"] = defaultPath
@@ -42,7 +37,7 @@ func NewGoMock(options ...GoMockOption) *GoMock {
 }
 
 // Run ...
-func (gotest *GoMock) Run() error {
+func (gotest *GoTest) Run() error {
 	files, err := filepath.Glob(global["path"].(string) + "*.json")
 	if err != nil {
 		return err
@@ -56,7 +51,7 @@ func (gotest *GoMock) Run() error {
 }
 
 // RunSingle ...
-func (gotest *GoMock) RunSingle(file string) error {
+func (gotest *GoTest) RunSingle(file string) error {
 	if err := gotest.execute([]string{file}); err != nil {
 		log.Error(err)
 		return err
@@ -65,44 +60,21 @@ func (gotest *GoMock) RunSingle(file string) error {
 	return nil
 }
 
-// Stop ...
-func (gotest *GoMock) Stop() error {
-	if err := gotest.runner.Teardown(); err != nil {
-		log.Error(err)
-		return err
-	}
-	log.Info("stopped all services")
-
-	return nil
-}
-
-func (gotest *GoMock) execute(files []string) error {
+func (gotest *GoTest) execute(files []string) error {
 	for _, file := range files {
-		servicesOnFile := &Services{}
-		if _, err := readFile(file, servicesOnFile); err != nil {
+		log.Infof("loading test file %s", file)
+		testsOnFile := &TestFile{}
+		if _, err := readFile(file, testsOnFile); err != nil {
 			return err
 		}
-		gotest.services = append(gotest.services, servicesOnFile)
+		gotest.testFiles[file] = testsOnFile
 	}
 
-	gotest.runner = NewRunner(gotest.services)
-	if err := gotest.runner.Setup(); err != nil {
+	gotest.runner = NewRunner(gotest.testFiles)
+	if err := gotest.runner.Run(); err != nil {
+		log.Info("error running testFiles")
 		return err
 	}
 
-	log.Info("started all services")
-
-	if !gotest.background {
-		gotest.Wait()
-	}
-
 	return nil
-}
-
-// Wait ...
-func (gotest *GoMock) Wait() {
-	log.Info("waiting to stop...")
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
 }

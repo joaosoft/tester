@@ -8,14 +8,12 @@ import (
 )
 
 type RedisRunner struct {
-	services      []RedisService
-	configuration *RedisConfig
+	services []RedisTest
 }
 
-func NewRedisRunner(services []RedisService, config *RedisConfig) *RedisRunner {
+func NewRedisRunner(scenario IScenario, services []RedisTest) *RedisRunner {
 	return &RedisRunner{
-		services:      services,
-		configuration: config,
+		services: services,
 	}
 }
 

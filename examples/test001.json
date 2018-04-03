@@ -1,41 +1,48 @@
 {
-  "description": "test 001",
-  "scenario": [
-    {
-      "files":["scenario001.json", "scenario002.json"]
+  "description": "test name 001",
+  "scenario": {
+    "options": {
+      "run": "once"
     },
-    {
-      "mocks": [
-        {
-          "files": ["mocks/mock001"],
-          "sql": [
-            {
-              "name": "postgres",
-              "description": "add users information",
-              "configuration": {
-                "driver": "postgres",
-                "datasource": "postgres://user:password@localhost:7001?sslmode=disable"
+    "files": [
+      "scenario001.json",
+      "scenario002.json"
+    ],
+    "mocks": [
+      {
+        "files": [
+          "mocks/mock001",
+          "mocks/mock002"
+        ],
+        "sql": [
+          {
+            "name": "postgres",
+            "description": "add users information",
+            "configuration": {
+              "driver": "postgres",
+              "datasource": "postgres://user:password@localhost:7001?sslmode=disable"
+            },
+            "run": {
+              "setup": {
+                "queries": [
+                  "DROP TABLE IF EXISTS USERS",
+                  "CREATE TABLE USERS(name varchar(255), description varchar(255))",
+                  "INSERT INTO USERS(name, description) VALUES('joao', 'administrator')",
+                  "INSERT INTO USERS(name, description) VALUES('tiago', 'user')"
+                ]
               },
-              "run": {
-                "setup": {
-                  "queries": [
-                    "DROP TABLE IF EXISTS USERS",
-                    "CREATE TABLE USERS(name varchar(255), description varchar(255))",
-                    "INSERT INTO USERS(name, description) VALUES('joao', 'administrator')",
-                    "INSERT INTO USERS(name, description) VALUES('tiago', 'user')"
-                  ]
-                },
-                "teardown": {
-                  "queries": [
-                    "DROP TABLE IF EXISTS USERS"
-                  ]
-                }
+              "teardown": {
+                "queries": [
+                  "DROP TABLE IF EXISTS USERS"
+                ]
               }
             }
-          ]
-        }
-      ],
-      "http": {
+          }
+        ]
+      }
+    ],
+    "http": [
+      {
         "description": "scenario 001",
         "host": ":8080",
         "method": "POST",
@@ -46,7 +53,7 @@
           "text": "apple"
         }
       },
-      "http": {
+      {
         "description": "scenario 002",
         "host": ":8081",
         "method": "POST",
@@ -55,11 +62,12 @@
         "headers": {},
         "file": "data/body001.json"
       }
-    }
-  ],
-  "tests": [
-    {
-      "http": {
+    ]
+  },
+  "tests": {
+    "description": "my first test",
+    "http": [
+      {
         "description": "test http 001",
         "host": ":8080",
         "method": "GET",
@@ -73,8 +81,10 @@
             "text": "apple"
           }
         }
-      },
-      "sql": {
+      }
+    ],
+    "sql": [
+      {
         "description": "test sql 002",
         "host": ":8080",
         "method": "GET",
@@ -88,8 +98,10 @@
             "text": "apple"
           }
         }
-      },
-      "redis": {
+      }
+    ],
+    "redis": [
+      {
         "description": "test redis 003",
         "host": ":8080",
         "method": "GET",
@@ -104,6 +116,6 @@
           }
         }
       }
-    }
-  ]
+    ]
+  }
 }

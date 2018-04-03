@@ -9,14 +9,12 @@ import (
 )
 
 type SQLRunner struct {
-	services      []SQLService
-	configuration *SQLConfig
+	services []SqlTest
 }
 
-func NewSQLRunner(services []SQLService, config *SQLConfig) *SQLRunner {
+func NewSQLRunner(scenario IScenario, services []SqlTest) *SQLRunner {
 	return &SQLRunner{
-		services:      services,
-		configuration: config,
+		services: services,
 	}
 }
 
