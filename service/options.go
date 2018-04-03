@@ -28,15 +28,8 @@ func WithPath(path string) GoTestOption {
 	}
 }
 
-// WithRunInBackground ...
-func WithRunInBackground(background bool) GoTestOption {
-	return func(gotest *GoTest) {
-		gotest.background = background
-	}
-}
-
 // WithLogger ...
-func WithLogger(logger logger.Log) GoTestOption {
+func WithLogger(logger logger.ILog) GoTestOption {
 	return func(gotest *GoTest) {
 		log = logger
 	}

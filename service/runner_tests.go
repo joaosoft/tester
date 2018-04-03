@@ -1,18 +1,9 @@
 package gotest
 
-func (tests *Tests) Run(scenario IScenario) error {
-
-	// run http
-	httpRunner := NewWebRunner(scenario, tests.HttpTest)
-	httpRunner.Run()
-
-	// run sql
-	sqlRunner := NewSQLRunner(scenario, tests.SqlTest)
-	sqlRunner.Run()
-
-	// run redis
-	redisRunner := NewRedisRunner(scenario, tests.RedisTest)
-	redisRunner.Run()
+func (tests *Tests) Run(scenarioRunner *ScenarioRunner) error {
+	NewWebRunner(scenarioRunner, tests.HttpTest).Run()
+	NewSQLRunner(scenarioRunner, tests.SqlTest).Run()
+	NewRedisRunner(scenarioRunner, tests.RedisTest).Run()
 
 	return nil
 }

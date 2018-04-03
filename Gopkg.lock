@@ -29,25 +29,25 @@
   branch = "master"
   name = "github.com/joaosoft/go-log"
   packages = ["service"]
-  revision = "1d813786bbd1457ce99ae42ede07a228ec1fd8eb"
+  revision = "c2791efb9983ce119abe1d1ffeebab6b91048372"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-manager"
   packages = ["service"]
-  revision = "ad23b8e549bb819405b73570320c54a622242309"
+  revision = "523d5c020d6b9ec5408d20a47d5063dca0a687b9"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-mapper"
   packages = ["service"]
-  revision = "0f79fa765a4027d70b828b4f3d2d37cdbafc1349"
+  revision = "425024bab22e6b59baf524cac0255e416af6a9bc"
 
 [[projects]]
   branch = "master"
-  name = "github.com/joaosoft/go-mock"
+  name = "github.com/joaosoft/go-setup"
   packages = ["service"]
-  revision = "c50b9cc59679e3c3b074d6696a03e6809b842eb7"
+  revision = "8009b401e467ef113ad69df758d3a61c24cb55af"
 
 [[projects]]
   name = "github.com/labstack/echo"
@@ -113,7 +113,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["acme","acme/autocert"]
-  revision = "12892e8c234f4fe6f6803f052061de9057903bb2"
+  revision = "b2aa35443fbc700ab74c586ae79b81c171851023"
 
 [[projects]]
   branch = "master"
@@ -142,6 +142,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "882745f0ea0032b9c63d44eff0216f50778ae4b8fa2a7e3e19148d7d718c81b7"
+  inputs-digest = "035432674cf2d6dc6567b22a66ac21ce6c9c2ad483121f4b132c379318d8941f"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -9,106 +9,63 @@ import (
 )
 
 type SQLRunner struct {
-	services []SqlTest
+	tests []SqlTest
 }
 
-func NewSQLRunner(scenario IScenario, services []SqlTest) *SQLRunner {
+func NewSQLRunner(scenarioRunner *ScenarioRunner, services []SqlTest) *SQLRunner {
 	return &SQLRunner{
-		services: services,
+		tests: services,
 	}
 }
 
-func (runner *SQLRunner) Setup() error {
-	for _, service := range runner.services {
-		log.Infof("creating service [ %s ] with description [ %s ]", service.Name, service.Description)
+func (runner *SQLRunner) Run() error {
+	for _, test := range runner.tests {
+		log.Infof("creating test [ %s ] with description [ %s ]", test.Name, test.Description)
 
 		var conn *sql.DB
-		if configuration, err := runner.loadConfiguration(service); err != nil {
-			return err
-		} else {
-			if conn, err = configuration.connect(); err != nil {
-				return fmt.Errorf("failed to create sql connection")
-			}
+		var err error
+		if conn, err = test.Configuration.connect(); err != nil {
+			return fmt.Errorf("failed to create sql connection")
 		}
 
-		if service.Run.Setup != nil {
-			for _, setup := range service.Run.Setup {
-				if err := runner.runCommands(conn, &setup); err != nil {
-					return err
-				}
-
-				if err := runner.runCommandsFromFile(conn, &setup); err != nil {
-					return err
-				}
+		var expected *sql.Rows
+		if test.Expected.Command != nil {
+			if expected, err = runner.runCommand(conn, test.Expected.Command); err != nil {
+				return err
+			}
+		} else if test.Expected.File != nil {
+			if expected, err = runner.runFile(conn, test.Expected.File); err != nil {
+				return err
+			}
+		}
+		if expected.Next() {
+			var result bool
+			expected.Scan(&result)
+			if !result {
+				return fmt.Errorf("error on sql validation. it should return 'true'")
 			}
 		}
 	}
 	return nil
 }
 
-func (runner *SQLRunner) Teardown() error {
-	for _, service := range runner.services {
-		log.Infof("teardown service [ %s ] with description [ %s ]", service.Name, service.Description)
-
-		var conn *sql.DB
-		if configuration, err := runner.loadConfiguration(service); err != nil {
-			return err
-		} else {
-			if conn, err = configuration.connect(); err != nil {
-				return fmt.Errorf("failed to create sql connection")
-			}
-		}
-
-		if service.Run.Setup != nil {
-			for _, setup := range service.Run.Teardown {
-				if err := runner.runCommands(conn, &setup); err != nil {
-					return err
-				}
-
-				if err := runner.runCommandsFromFile(conn, &setup); err != nil {
-					return err
-				}
-			}
-		}
-	}
-	return nil
-}
-
-func (runner *SQLRunner) loadConfiguration(test SQLService) (*SQLConfig, error) {
-	if test.Configuration != nil {
-		return runner.configuration, nil
-	} else if runner.configuration != nil {
-		return runner.configuration, nil
+func (runner *SQLRunner) runCommand(conn *sql.DB, command *string) (*sql.Rows, error) {
+	if result, err := conn.Query(*command); err != nil {
+		return nil, fmt.Errorf("failed to execute sql command [ %s ]", err)
 	} else {
-		return nil, fmt.Errorf("invalid redis configuration")
+		return result, nil
 	}
 }
 
-func (runner *SQLRunner) runCommands(conn *sql.DB, run *SQLRun) error {
-	for _, command := range run.Queries {
-		log.Infof("executing sql command [ %s ]", command)
+func (runner *SQLRunner) runFile(conn *sql.DB, file *string) (*sql.Rows, error) {
+	log.Infof("executing nsq commands by file [ %s ]", *file)
 
-		if _, err := conn.Exec(command); err != nil {
-			return fmt.Errorf("failed to execute sql command [ %s ]", err)
-		}
+	var query string
+	if bytes, err := readFile(*file, nil); err != nil {
+		return nil, fmt.Errorf("failed to read sql file [ %s ] with error [ %s ]", *file, err)
+	} else {
+		query = string(bytes)
 	}
-	return nil
-}
 
-func (runner *SQLRunner) runCommandsFromFile(conn *sql.DB, run *SQLRun) error {
-	for _, file := range run.Files {
-		log.Info("executing nsq commands by file [ %s ]", file)
-
-		var query string
-		if bytes, err := readFile(file, nil); err != nil {
-			return fmt.Errorf("failed to read sql file [ %s ] with error [ %s ]", file, err)
-		} else {
-			query = string(bytes)
-		}
-
-		if _, err := conn.Exec(query); err != nil {
-			return fmt.Errorf("failed to execute sql file %s : %s", file, err)
-		}
-	}
-	return nil
+	return runner.runCommand(conn, &query)
 }

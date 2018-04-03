@@ -3,7 +3,7 @@ package gotest
 import (
 	"time"
 
-	gomock "github.com/joaosoft/go-mock/service"
+	"github.com/joaosoft/go-setup/service"
 )
 
 // TestFile ...
@@ -16,34 +16,36 @@ type TestFile struct {
 
 // Scenario ...
 type Scenario struct {
-	Options map[string]string  `json:"options,omitempty"`
-	Files   []string           `json:"files,omitempty"`
-	Mocks   []*gomock.Services `json:"mocks,omitempty"`
-	Tests   []Tests            `json:"testFiles"`
+	Options map[string]string   `json:"options,omitempty"`
+	Files   []string            `json:"files,omitempty"`
+	Setup   []*gosetup.Services `json:"mocks,omitempty"`
+	Tests   []Tests             `json:"testFiles"`
 }
 
 // Tests ...
 type Tests struct {
-	Description string      `json:"description"`
-	HttpTest    []HttpTest  `json:"http"`
-	SqlTest     []SqlTest   `json:"sql"`
-	RedisTest   []RedisTest `json:"redis"`
+	BaseTest
+	HttpTest  []HttpTest  `json:"http"`
+	SqlTest   []SqlTest   `json:"sql"`
+	RedisTest []RedisTest `json:"redis"`
+	NsqTest   []NsqTest   `json:"nsq"`
 }
 
 type BaseTest struct {
-	Scenario    Scenario `json:"scenario"`
-	Description string   `json:"description"`
+	Name        string `json"name"`
+	Description string `json:"description"`
 }
 
 // HttpTest ...
 type HttpTest struct {
 	BaseTest
-	Host    string         `json:"host"`
-	Method  string         `json:"method"`
-	Route   string         `json:"route"`
-	Headers *HttpHeaders   `json:"headers"`
-	Cookies []*HttpCookies `json:"cookies"`
-	Body    struct {
+	Scenario Scenario       `json:"scenario"`
+	Host     string         `json:"host"`
+	Method   string         `json:"method"`
+	Route    string         `json:"route"`
+	Headers  *HttpHeaders   `json:"headers"`
+	Cookies  []*HttpCookies `json:"cookies"`
+	Body     struct {
 	} `json:"body"`
 	Expected struct {
 		Status int      `json:"status"`
@@ -77,10 +79,16 @@ type BodyMatch struct {
 // SqlTest ...
 type SqlTest struct {
 	BaseTest
+	Scenario      Scenario   `json:"scenario"`
 	Configuration *SqlConfig `json:"configuration"`
 	Connection    *string    `json:"connection"`
-	Query         string     `json:"query"`
-	Expected      string     `json"expected"`
+	Expected      SqlCommand `json"expected"`
+}
+
+// SqlCommand ...
+type SqlCommand struct {
+	Command *string `json:"command"`
+	File    *string `json:"file"`
 }
 
 // SqlConfig ...
@@ -92,10 +100,10 @@ type SqlConfig struct {
 // RedisTest ...
 type RedisTest struct {
 	BaseTest
+	Scenario      Scenario     `json:"scenario"`
 	Configuration *RedisConfig `json:"configuration"`
 	Connection    *string      `json:"connection"`
-	Command       string       `json:"command"`
-	Expected      string       `json"expected"`
+	Expected      RedisCommand `json"expected"`
 }
 
 // RedisConfig ...
@@ -103,4 +111,32 @@ type RedisConfig struct {
 	Protocol string `json:"protocol"`
 	Address  string `json:"address"`
 	Size     int    `json:"size"`
+}
+
+type RedisCommand struct {
+	File      *string  `json:"file"`
+	Command   *string  `json:"command"`
+	Arguments []string `json:"arguments"`
+}
+
+// NsqTest ...
+type NsqTest struct {
+	BaseTest
+	Scenario      Scenario   `json:"scenario"`
+	Configuration *NsqConfig `json:"configuration"`
+	Expected      NsqCommand `json"expected"`
+}
+
+// NsqConfig ...
+type NsqConfig struct {
+	Lookupd      string `json:"lookupd"`
+	RequeueDelay int64  `json:"requeue_delay"`
+	MaxInFlight  int    `json:"max_in_flight"`
+	MaxAttempts  uint16 `json:"max_attempts"`
+}
+
+type NsqCommand struct {
+	Topic   string  `json:"topic"`
+	File    *string `json:"file"`
+	Message *[]byte `json:"message"`
 }

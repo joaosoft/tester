@@ -10,7 +10,7 @@ type HttpRunner struct {
 	tests []HttpTest
 }
 
-func NewWebRunner(scenario IScenario, tests []HttpTest) *HttpRunner {
+func NewWebRunner(scenarioRunner *ScenarioRunner, tests []HttpTest) *HttpRunner {
 	return &HttpRunner{
 		tests: tests,
 	}

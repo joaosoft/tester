@@ -12,8 +12,8 @@ type GoTest struct {
 	runner    IRunner
 }
 
-// NewGoMock ...make
-func NewGoMock(options ...GoTestOption) *GoTest {
+// NewGoTest ...make
+func NewGoTest(options ...GoTestOption) *GoTest {
 	log.Info("starting GoTest Service")
 	mock := &GoTest{
 		testFiles: make(map[string]*TestFile, 0),

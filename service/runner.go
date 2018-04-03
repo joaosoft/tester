@@ -19,15 +19,12 @@ func NewRunner(testFiles map[string]*TestFile) *Runner {
 func (runner *Runner) Run() error {
 	for testFileName, testFile := range runner.testFiles {
 		log.Infof("running test file %s", testFileName)
-		if testFile.Scenario.IsToRunOnce() {
-			testFile.Scenario.Setup()
-		}
 
-		testFile.Tests.Run(&testFile.Scenario)
+		scenarioRunner := NewScenarioRunner(&testFile.Scenario)
 
-		if testFile.Scenario.IsToRunOnce() {
-			testFile.Scenario.Teardown()
-		}
+		scenarioRunner.Setup()
+		testFile.Tests.Run(scenarioRunner)
+		scenarioRunner.Teardown()
 	}
 	return nil
 }

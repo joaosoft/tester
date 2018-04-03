@@ -8,103 +8,55 @@ import (
 )
 
 type RedisRunner struct {
-	services []RedisTest
+	tests []RedisTest
 }
 
-func NewRedisRunner(scenario IScenario, services []RedisTest) *RedisRunner {
+func NewRedisRunner(scenarioRunner *ScenarioRunner, services []RedisTest) *RedisRunner {
 	return &RedisRunner{
-		services: services,
+		tests: services,
 	}
 }
 
-func (runner *RedisRunner) Setup() error {
-	for _, service := range runner.services {
-		log.Infof("creating service [ %s ] with description [ %s] ", service.Name, service.Description)
+func (runner *RedisRunner) Run() error {
+	for _, test := range runner.tests {
+		log.Infof("running redis test [ %s ] with description [ %s] ", test.Name, test.Description)
 
 		var conn *redis.Pool
-		if configuration, err := runner.loadConfiguration(service); err != nil {
-			return err
-		} else {
-			if conn, err = configuration.connect(); err != nil {
-				return fmt.Errorf("failed to create redis connection")
-			}
+		var err error
+		if conn, err = test.Configuration.connect(); err != nil {
+			return fmt.Errorf("failed to create redis connection")
 		}
 
-		if service.Run.Setup != nil {
-			for _, setup := range service.Run.Setup {
-				if err := runner.runCommands(conn, &setup); err != nil {
-					return err
-				}
-
-				if err := runner.runCommandsFromFile(conn, &setup); err != nil {
-					return err
-				}
+		if test.Expected.Command != nil {
+			if err := runner.runCommand(conn, test.Expected.Command, test.Expected.Arguments); err != nil {
+				return err
+			}
+		} else if test.Expected.File != nil {
+			if err := runner.runFile(conn, test.Expected.File); err != nil {
+				return err
 			}
 		}
 	}
 	return nil
 }
 
-func (runner *RedisRunner) Teardown() error {
-	for _, service := range runner.services {
-		log.Infof("teardown service [ %s ]", service.Name)
-
-		var conn *redis.Pool
-		if configuration, err := runner.loadConfiguration(service); err != nil {
-			return err
-		} else {
-			if conn, err = configuration.connect(); err != nil {
-				return fmt.Errorf("failed to create redis connection")
-			}
-		}
-
-		if service.Run.Teardown != nil {
-			for _, teardown := range service.Run.Teardown {
-				if err := runner.runCommands(conn, &teardown); err != nil {
-					return err
-				}
-
-				if err := runner.runCommandsFromFile(conn, &teardown); err != nil {
-					return err
-				}
-			}
-		}
+func (runner *RedisRunner) runCommand(conn *redis.Pool, command *string, arguments []string) error {
+	log.Infof("executing redis command [ %s ] arguments [ %s ]", command, arguments)
+	if err := conn.Do(redis.Cmd(nil, *command, arguments...)); err != nil {
+		return err
 	}
 	return nil
 }
 
-func (runner *RedisRunner) loadConfiguration(test RedisService) (*RedisConfig, error) {
-	if test.Configuration != nil {
-		return runner.configuration, nil
-	} else if runner.configuration != nil {
-		return runner.configuration, nil
-	} else {
-		return nil, fmt.Errorf("invalid redis configuration")
-	}
-}
+func (runner *RedisRunner) runFile(conn *redis.Pool, file *string) error {
+	log.Infof("executing redis commands by file [ %s ]", *file)
 
-func (runner *RedisRunner) runCommands(conn *redis.Pool, run *RedisRun) error {
-	for _, command := range run.Commands {
-		log.Infof("executing redis command [ %s ] arguments [ %s ]", command.Command, command.Arguments)
-		if err := conn.Do(redis.Cmd(nil, command.Command, command.Arguments...)); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (runner *RedisRunner) runCommandsFromFile(conn *redis.Pool, run *RedisRun) error {
-	for _, file := range run.Files {
-		log.Info("executing nsq commands by file [ %s ]", file)
-
-		if lines, err := readFileLines(file); err != nil {
-			for _, line := range lines {
-				command := strings.SplitN(line, " ", 1)
-				log.Infof("executing redis command [ %s ] arguments [ %s ]", command[0], command[1])
-				if err := conn.Do(redis.Cmd(nil, command[0], command[1])); err != nil {
-					return err
-				}
-			}
+	if lines, err := readFileLines(*file); err != nil {
+		for _, line := range lines {
+			command := strings.SplitN(line, " ", 1)
+			arguments := strings.Split(command[1], " ")
+			log.Infof("executing redis command [ %s ] arguments [ %s ]", command[0], arguments)
+			return runner.runCommand(conn, &command[0], arguments)
 		}
 	}
 	return nil
