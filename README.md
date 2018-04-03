@@ -1,5 +1,5 @@
 # go-test
-[![Build Status](https://travis-ci.org/joaosoft/go-test.svg?branch=master)](https://travis-ci.org/joaosoft/go-test) | [![codecov](https://codecov.io/gh/joaosoft/go-manager/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/go-manager)
+[![Build Status](https://travis-ci.org/joaosoft/go-test.svg?branch=master)](https://travis-ci.org/joaosoft/go-test) | [![codecov](https://codecov.io/gh/joaosoft/go-test/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/go-test)
 
 A package framework to test webservices.
 
