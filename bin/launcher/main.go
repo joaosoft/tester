@@ -17,5 +17,6 @@ func main() {
 		"time":    logger.TIME,
 		"service": "go-test"})
 
-	gotest.NewGoTest(gotest.WithLogger(log))
+	test := gotest.NewGoTest(gotest.WithLogger(log), gotest.WithPath("./examples"))
+	test.Run()
 }

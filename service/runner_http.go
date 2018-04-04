@@ -19,6 +19,7 @@ func NewWebRunner(scenarioRunner *ScenarioRunner, tests []HttpTest) *HttpRunner 
 func (runner *HttpRunner) Run() error {
 	gateway := gomanager.NewSimpleGateway()
 	for _, test := range runner.tests {
+		log.Infof("running http test [ name: %s, description: %s ]", test.Name, test.Description)
 		var headers *HttpHeaders
 		if test.Headers != nil {
 			headers = test.Headers

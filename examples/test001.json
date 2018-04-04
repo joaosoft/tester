@@ -8,11 +8,11 @@
       "scenario001.json",
       "scenario002.json"
     ],
-    "mocks": [
+    "setup": [
       {
         "files": [
-          "mocks/mock001",
-          "mocks/mock002"
+          "data/mock001",
+          "data/mock002"
         ],
         "sql": [
           {
@@ -23,19 +23,22 @@
               "datasource": "postgres://user:password@localhost:7001?sslmode=disable"
             },
             "run": {
-              "setup": {
-                "queries": [
-                  "DROP TABLE IF EXISTS USERS",
-                  "CREATE TABLE USERS(name varchar(255), description varchar(255))",
-                  "INSERT INTO USERS(name, description) VALUES('joao', 'administrator')",
-                  "INSERT INTO USERS(name, description) VALUES('tiago', 'user')"
-                ]
-              },
-              "teardown": {
+              "setup": [
+                {
+                  "queries": [
+                    "DROP TABLE IF EXISTS USERS",
+                    "CREATE TABLE USERS(name varchar(255), description varchar(255))",
+                    "INSERT INTO USERS(name, description) VALUES('joao', 'administrator')",
+                    "INSERT INTO USERS(name, description) VALUES('tiago', 'user')"
+                  ]
+                }
+              ],
+              "teardown": [ {
                 "queries": [
                   "DROP TABLE IF EXISTS USERS"
                 ]
               }
+              ]
             }
           }
         ]

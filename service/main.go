@@ -15,7 +15,7 @@ type GoTest struct {
 // NewGoTest ...make
 func NewGoTest(options ...GoTestOption) *GoTest {
 	log.Info("starting GoTest Service")
-	mock := &GoTest{
+	test := &GoTest{
 		testFiles: make(map[string]*TestFile, 0),
 	}
 
@@ -31,9 +31,9 @@ func NewGoTest(options ...GoTestOption) *GoTest {
 		WithLogLevel(level)
 	}
 
-	mock.Reconfigure(options...)
+	test.Reconfigure(options...)
 
-	return mock
+	return test
 }
 
 // Run ...

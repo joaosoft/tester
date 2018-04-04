@@ -1,0 +1,116 @@
+{
+  "http": [
+    {
+      "name": "hello",
+      "description": "test hello",
+      "host": ":8001",
+      "routes": [
+        {
+          "description": "creating web mock service",
+          "method": "GET",
+          "route": "/hello",
+          "response": {
+            "status": 200,
+            "body": {
+              "message": "Hello friend!"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "goodbye",
+      "description": "test goodbye",
+      "host": ":8002",
+      "routes": [
+        {
+          "description": "creating web mock service",
+          "method": "GET",
+          "route": "/goodbye",
+          "response": {
+            "status": 200,
+            "body": {
+              "message": "Goodbye friend!"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "something",
+      "description": "testing payload of a post",
+      "host": ":8003",
+      "routes": [
+        {
+          "description": "creating web mock service",
+          "method": "POST",
+          "route": "/something",
+          "body": {
+            "name": "joao",
+            "age": 29
+          },
+          "response": {
+            "status": 200,
+            "body": {
+              "message": "Goodbye friend!"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "loading",
+      "description": "loading the payload from a file",
+      "host": ":8004",
+      "routes": [
+        {
+          "description": "creating web mock service",
+          "method": "POST",
+          "route": "/loading",
+          "headers": {
+            "Cookie": ["Cookie_2=value002; Cookie_1=value001"],
+            "Accept-Encoding": ["gzip, deflate"],
+            "Accept": ["*/*"],
+            "Connection": ["keep-alive"],
+            "User-Agent": ["PostmanRuntime/7.1.1"],
+            "Cache-Control": ["no-cache"],
+            "Content-Length": ["33"],
+            "Content-Type": ["application/json"]
+          },
+          "cookies": [
+            {
+              "name": "Cookie_1",
+              "value": "value001"
+            },
+            {
+              "name": "Cookie_2",
+              "value": "value002"
+            }
+          ],
+          "file": "data/http_body_request.json",
+          "response": {
+            "status": 200,
+            "file": "data/http_body_response.json"
+          }
+        }
+      ]
+    },
+    {
+      "name": "loading",
+      "description": "loading the payload from a file",
+      "host": ":8005",
+      "routes": [
+        {
+          "description": "creating web mock service",
+          "method": "POST",
+          "route": "/loading",
+          "file": "data/http_body_request.json",
+          "response": {
+            "status": 200,
+            "file": "data/http_body_response.json"
+          }
+        }
+      ]
+    }
+  ]
+}

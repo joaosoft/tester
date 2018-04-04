@@ -18,7 +18,7 @@ type TestFile struct {
 type Scenario struct {
 	Options map[string]string   `json:"options,omitempty"`
 	Files   []string            `json:"files,omitempty"`
-	Setup   []*gosetup.Services `json:"mocks,omitempty"`
+	Setup   []*gosetup.Services `json:"setup,omitempty"`
 	Tests   []Tests             `json:"testFiles"`
 }
 
