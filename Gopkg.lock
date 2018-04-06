@@ -29,25 +29,31 @@
   branch = "master"
   name = "github.com/joaosoft/go-log"
   packages = ["service"]
-  revision = "4068ced811b9c02b08ebd479d4f072f926346e8b"
+  revision = "7eb7d784fcffae0264a38643352e62999ba8ad2e"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-manager"
   packages = ["service"]
-  revision = "523d5c020d6b9ec5408d20a47d5063dca0a687b9"
+  revision = "16df97954d56d7ddec8fb9132dfee1a65975a6a3"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-mapper"
   packages = ["service"]
-  revision = "425024bab22e6b59baf524cac0255e416af6a9bc"
+  revision = "0f51b5caf22f477b57a23afdd297c095406eb5c3"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-setup"
   packages = ["service"]
-  revision = "b481c41d8d60083a90ad004aa8039bbf25e5f815"
+  revision = "6f1dc039ad0dc12863a11e1c78fe1c3e87be397a"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/joaosoft/go-writer"
+  packages = ["service"]
+  revision = "647f479089687d12ae88538c7b746c2fc89c02fb"
 
 [[projects]]
   name = "github.com/labstack/echo"
@@ -98,6 +104,12 @@
   version = "v1.3.0"
 
 [[projects]]
+  name = "github.com/satori/go.uuid"
+  packages = ["."]
+  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
+  version = "v1.2.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/valyala/bytebufferpool"
   packages = ["."]
@@ -125,7 +137,7 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "1d206c9fa8975fb4cf00df1dc8bf3283dc24ba0e"
+  revision = "3b87a42e500a6dc65dae1a55d0b641295971163e"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -142,6 +154,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "035432674cf2d6dc6567b22a66ac21ce6c9c2ad483121f4b132c379318d8941f"
+  inputs-digest = "9f7b7db2f50ebaed40070bc2b8b1d07807534d6dda1f307948c29f49e378fe23"
   solver-name = "gps-cdcl"
   solver-version = 1
