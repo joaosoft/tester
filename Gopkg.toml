@@ -43,6 +43,10 @@
 
 [[constraint]]
   branch = "master"
+  name = "github.com/joaosoft/go-writer"
+
+[[constraint]]
+  branch = "master"
   name = "github.com/lib/pq"
 
 [[constraint]]

@@ -29,25 +29,25 @@
   branch = "master"
   name = "github.com/joaosoft/go-log"
   packages = ["service"]
-  revision = "7eb7d784fcffae0264a38643352e62999ba8ad2e"
+  revision = "14737dce72a7fb9bda9fefab53bf5fae602e22f4"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-manager"
   packages = ["service"]
-  revision = "16df97954d56d7ddec8fb9132dfee1a65975a6a3"
+  revision = "175d733a08335c2f88504434fa0f5f0106e79070"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-mapper"
   packages = ["service"]
-  revision = "0f51b5caf22f477b57a23afdd297c095406eb5c3"
+  revision = "459475f722d6617de8d79cf9caa24d309a97e073"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-setup"
   packages = ["service"]
-  revision = "6f1dc039ad0dc12863a11e1c78fe1c3e87be397a"
+  revision = "3ab66d10aa6f9beef50097c8029a543dd818c016"
 
 [[projects]]
   branch = "master"
@@ -154,6 +154,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "9f7b7db2f50ebaed40070bc2b8b1d07807534d6dda1f307948c29f49e378fe23"
+  inputs-digest = "71429959a8cdb8839c96bb09f085ee69be6f0f80aa3e02b3250e0383de15df03"
   solver-name = "gps-cdcl"
   solver-version = 1
