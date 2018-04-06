@@ -3,7 +3,7 @@ package gotest
 import (
 	"fmt"
 
-	gomanager "github.com/joaosoft/go-manager/service"
+	"github.com/joaosoft/go-manager/service"
 )
 
 type HttpRunner struct {
@@ -18,16 +18,18 @@ func NewWebRunner(scenarioRunner *ScenarioRunner, tests []HttpTest) *HttpRunner 
 
 func (runner *HttpRunner) Run() error {
 	gateway := gomanager.NewSimpleGateway()
+
 	for _, test := range runner.tests {
-		log.Infof("running http test [ name: %s, description: %s ]", test.Name, test.Description)
-		var headers *HttpHeaders
+		log.Infof("running http test with [ name: %s, description: %s ]", test.Name, test.Description)
+		var headers HttpHeaders
 		if test.Headers != nil {
-			headers = test.Headers
+			headers = *test.Headers
 		}
-		status, response, err := gateway.Request(test.Method, test.Host, test.Route, *headers, test.Body)
+
+		status, response, err := gateway.Request(test.Method, test.Host, test.Route, headers, test.Body)
 
 		if err != nil {
-			return fmt.Errorf("error executing http test \"%s\"", test.Description)
+			return fmt.Errorf("error executing http test [ error: %s ]", err)
 		}
 
 		if status != test.Expected.Status {

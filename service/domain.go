@@ -3,15 +3,16 @@ package gotest
 import (
 	"time"
 
+	"encoding/json"
+
 	"github.com/joaosoft/go-setup/service"
 )
 
 // TestFile ...
 type TestFile struct {
-	Name        string   `json:"name`
-	Description string   `json:"description"`
-	Scenario    Scenario `json:"scenario"`
-	Tests       Tests    `json:"testFiles"`
+	BaseTest
+	Scenario Scenario `json:"scenario"`
+	Tests    Tests    `json:"tests"`
 }
 
 // Scenario ...
@@ -19,7 +20,7 @@ type Scenario struct {
 	Options map[string]string   `json:"options,omitempty"`
 	Files   []string            `json:"files,omitempty"`
 	Setup   []*gosetup.Services `json:"setup,omitempty"`
-	Tests   []Tests             `json:"testFiles"`
+	Http    []HttpTest          `json:"http"`
 }
 
 // Tests ...
@@ -39,14 +40,14 @@ type BaseTest struct {
 // HttpTest ...
 type HttpTest struct {
 	BaseTest
-	Scenario Scenario       `json:"scenario"`
-	Host     string         `json:"host"`
-	Method   string         `json:"method"`
-	Route    string         `json:"route"`
-	Headers  *HttpHeaders   `json:"headers"`
-	Cookies  []*HttpCookies `json:"cookies"`
-	Body     struct {
-	} `json:"body"`
+	Scenario Scenario         `json:"scenario"`
+	Host     string           `json:"host"`
+	Method   string           `json:"method"`
+	Route    string           `json:"route"`
+	Headers  *HttpHeaders     `json:"headers"`
+	Cookies  []*HttpCookies   `json:"cookies"`
+	Body     *json.RawMessage `json:"body"`
+	File     *string          `json:"file"`
 	Expected struct {
 		Status int      `json:"status"`
 		Body   HttpBody `json:"body"`

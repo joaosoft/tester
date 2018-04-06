@@ -20,7 +20,7 @@ func NewSQLRunner(scenarioRunner *ScenarioRunner, services []SqlTest) *SQLRunner
 
 func (runner *SQLRunner) Run() error {
 	for _, test := range runner.tests {
-		log.Infof("creating test [ %s ] with description [ %s ]", test.Name, test.Description)
+		log.Infof("running sql test with [name: %s, description %s ]", test.Name, test.Description)
 
 		var conn *sql.DB
 		var err error

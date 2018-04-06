@@ -1,6 +1,10 @@
 package gotest
 
-import "github.com/joaosoft/go-setup/service"
+import (
+	"fmt"
+
+	"github.com/joaosoft/go-setup/service"
+)
 
 type ISystem interface {
 	Setup() error
@@ -20,9 +24,12 @@ func NewScenarioRunner(scenario *Scenario) *ScenarioRunner {
 
 // load recursive load scenario files inside every scenario
 func load(scenario *Scenario) []*Scenario {
+	log.Info("loading scenarios...")
 	for _, file := range scenario.Files {
+		log.Infof("loading scenario file %s", file)
 		nextScenario := &Scenario{}
 		if _, err := readFile(file, nextScenario); err != nil {
+			log.Error(err)
 			return nil
 		}
 
@@ -35,8 +42,10 @@ func load(scenario *Scenario) []*Scenario {
 func (runner *ScenarioRunner) Setup() error {
 	var services []*gosetup.Services
 	for _, scenario := range runner.scenarios {
+		log.Info(fmt.Sprintf("%d", len(scenario.Setup)))
 		services = append(services, scenario.Setup...)
 	}
+	log.Infof("running scenario [ setup ]")
 	runner.gosetup = gosetup.NewGoSetup(gosetup.WithRunInBackground(true), gosetup.WithLogger(log), gosetup.WithServices(services))
 	runner.gosetup.Run()
 

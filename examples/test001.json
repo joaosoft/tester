@@ -5,14 +5,14 @@
       "run": "once"
     },
     "files": [
-      "scenario001.json",
-      "scenario002.json"
+      "data/scenario001.json",
+      "data/scenario002.json"
     ],
     "setup": [
       {
         "files": [
-          "data/mock001",
-          "data/mock002"
+          "data/mock001.json",
+          "data/mock002.json"
         ],
         "sql": [
           {
@@ -46,77 +46,69 @@
     ],
     "http": [
       {
+        "name": "name 001",
         "description": "scenario 001",
-        "host": ":8080",
-        "method": "POST",
-        "route": "/test001",
-        "cookies": {},
-        "headers": {},
+        "host": "http://localhost:8001",
+        "method": "GET",
+        "route": "/hello",
         "body": {
-          "text": "apple"
+          "message": "Hello friend!"
         }
       },
       {
+        "name": "name 002",
         "description": "scenario 002",
-        "host": ":8081",
-        "method": "POST",
-        "route": "/test002",
-        "cookies": {},
-        "headers": {},
+        "host": "http://localhost:8002",
+        "method": "GET",
+        "route": "/goodbye",
         "file": "data/body001.json"
       }
     ]
   },
   "tests": {
+    "name": "to test",
     "description": "my first test",
     "http": [
       {
+        "name": "test one",
         "description": "test http 001",
-        "host": ":8080",
+        "host": "http://localhost:8001",
         "method": "GET",
-        "route": "/test001",
-        "cookies": {},
-        "headers": {},
+        "route": "/hello",
         "body": {},
         "expected": {
           "status": 200,
           "body": {
-            "text": "apple"
+            "message": "Hello friend!"
           }
         }
       }
     ],
     "sql": [
       {
-        "description": "test sql 002",
-        "host": ":8080",
-        "method": "GET",
-        "route": "/test001",
-        "cookies": {},
-        "headers": {},
-        "body": {},
+        "name": "mysql",
+        "description": "add clients information",
+        "configuration": {
+          "driver": "mysql",
+          "datasource": "root:password@tcp(127.0.0.1:7002)/mysql"
+        },
         "expected": {
-          "status": 200,
-          "body": {
-            "text": "apple"
-          }
+          "command": "CREATE TABLE CLIENTS(name varchar(255), description varchar(255))"
         }
       }
     ],
     "redis": [
       {
-        "description": "test redis 003",
-        "host": ":8080",
-        "method": "GET",
-        "route": "/test001",
-        "cookies": {},
-        "headers": {},
-        "body": {},
+        "name": "redis",
+        "description": "loading redis commands from file",
+        "configuration": {
+          "protocol": "tcp",
+          "address": "localhost:6379",
+          "size": 10
+        },
         "expected": {
-          "status": 200,
-          "body": {
-            "text": "apple"
-          }
+          "command": "DEL",
+          "arguments": ["id"]
         }
       }
     ]

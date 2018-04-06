@@ -8,15 +8,15 @@ import (
 
 // GoTest ...
 type GoTest struct {
-	testFiles map[string]*TestFile
-	runner    IRunner
+	tests  map[string]*TestFile
+	runner IRunner
 }
 
 // NewGoTest ...make
 func NewGoTest(options ...GoTestOption) *GoTest {
 	log.Info("starting GoTest Service")
 	test := &GoTest{
-		testFiles: make(map[string]*TestFile, 0),
+		tests: make(map[string]*TestFile, 0),
 	}
 
 	global["path"] = defaultPath
@@ -67,12 +67,12 @@ func (gotest *GoTest) execute(files []string) error {
 		if _, err := readFile(file, testsOnFile); err != nil {
 			return err
 		}
-		gotest.testFiles[file] = testsOnFile
+		gotest.tests[file] = testsOnFile
 	}
 
-	gotest.runner = NewRunner(gotest.testFiles)
+	gotest.runner = NewRunner(gotest.tests)
 	if err := gotest.runner.Run(); err != nil {
-		log.Info("error running testFiles")
+		log.Info("error running test files")
 		return err
 	}
 

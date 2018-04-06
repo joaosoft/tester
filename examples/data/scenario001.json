@@ -1,0 +1,13 @@
+{
+  "http": [
+    {
+      "description": "scenario 001",
+      "host": ":8001",
+      "method": "GET",
+      "route": "/hello",
+      "body": {
+        "message": "Hello friend!"
+      }
+    }
+  ]
+}

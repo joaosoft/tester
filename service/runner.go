@@ -22,9 +22,17 @@ func (runner *Runner) Run() error {
 
 		scenarioRunner := NewScenarioRunner(&testFile.Scenario)
 
-		scenarioRunner.Setup()
-		testFile.Tests.Run(scenarioRunner)
-		scenarioRunner.Teardown()
+		if err := scenarioRunner.Setup(); err != nil {
+			return err
+		}
+
+		if err := testFile.Tests.Run(scenarioRunner); err != nil {
+			return err
+		}
+
+		if err := scenarioRunner.Teardown(); err != nil {
+			return err
+		}
 	}
 	return nil
 }
