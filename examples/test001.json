@@ -11,8 +11,8 @@
     "setup": [
       {
         "files": [
-          "data/mock001.json",
-          "data/mock002.json"
+          "data/setup001.json",
+          "data/setup002.json"
         ],
         "sql": [
           {
@@ -107,7 +107,7 @@
           "size": 10
         },
         "expected": {
-          "command": "DEL",
+          "command": "GET",
           "arguments": ["id"]
         }
       }

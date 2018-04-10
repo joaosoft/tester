@@ -1,5 +1,7 @@
 package gotest
 
+import "time"
+
 type IRunner interface {
 	Run() error
 }
@@ -20,11 +22,15 @@ func (runner *Runner) Run() error {
 	for testFileName, testFile := range runner.testFiles {
 		log.Infof("running test file %s", testFileName)
 
-		scenarioRunner := NewScenarioRunner(&testFile.Scenario)
+		scenarioRunner, err := NewScenarioRunner(&testFile.Scenario)
+		if err != nil {
+			return err
+		}
 
 		if err := scenarioRunner.Setup(); err != nil {
 			return err
 		}
+		<-time.After(time.Minute * 1)
 
 		if err := testFile.Tests.Run(scenarioRunner); err != nil {
 			return err

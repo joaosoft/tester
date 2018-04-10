@@ -1,13 +1,34 @@
 {
-  "http": [
-    {
-      "description": "scenario 001",
-      "host": ":8001",
-      "method": "GET",
-      "route": "/hello",
-      "body": {
-        "message": "Hello friend!"
+  "scenario": {
+    "options": {
+      "run": "once"
+    },
+    "setup": [
+      {
+        "http": [
+          {
+            "description": "scenario 001",
+            "host": ":8001",
+            "method": "GET",
+            "route": "/hello",
+            "body": {
+              "message": "Hello friend!"
+            }
+          }
+        ]
       }
-    }
-  ]
+    ],
+    "http": [
+      {
+        "name": "name 001",
+        "description": "scenario 001",
+        "host": "http://localhost:8001",
+        "method": "GET",
+        "route": "/hello",
+        "body": {
+          "message": "Hello friend!"
+        }
+      }
+    ]
+  }
 }

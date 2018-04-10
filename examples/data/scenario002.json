@@ -1,13 +1,33 @@
 {
-  "http": [
-    {
-      "description": "scenario 002",
-      "host": ":8002",
-      "method": "GET",
-      "route": "/goodbye",
-      "body": {
-        "message": "Goodbye friend!"
+  "scenario": {
+    "options": {
+      "run": "once"
+    },
+    "setup": [
+      {
+        "http": [
+          {
+            "description": "scenario 002",
+            "host": ":8002",
+            "method": "GET",
+            "route": "/goodbye",
+            "body": {
+              "message": "Goodbye friend!"
+            }
+          }
+        ]
       }
-    }
-  ]
+    ],
+    "http": [
+      {
+        "description": "scenario 002",
+        "host": ":8002",
+        "method": "GET",
+        "route": "/goodbye",
+        "body": {
+          "message": "Goodbye friend!"
+        }
+      }
+    ]
+  }
 }

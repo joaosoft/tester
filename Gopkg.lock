@@ -29,7 +29,7 @@
   branch = "master"
   name = "github.com/joaosoft/go-log"
   packages = ["service"]
-  revision = "14737dce72a7fb9bda9fefab53bf5fae602e22f4"
+  revision = "7cc57808d863e4771e11df72fffd5a68aac8d215"
 
 [[projects]]
   branch = "master"

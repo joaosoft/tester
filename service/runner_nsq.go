@@ -11,10 +11,9 @@ type NSQRunner struct {
 	configuration *NsqConfig
 }
 
-func NewNSQRunner(services []NsqTest, config *NsqConfig) *NSQRunner {
+func NewNSQRunner(scenarioRunner *ScenarioRunner, services []NsqTest) *NSQRunner {
 	return &NSQRunner{
-		tests:         services,
-		configuration: config,
+		tests: services,
 	}
 }
 
