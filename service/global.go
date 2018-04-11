@@ -13,5 +13,5 @@ var log = logger.NewLog(
 	logger.WithFormatHandler(writer.JsonFormatHandler),
 	logger.WithWriter(os.Stdout)).WithPrefixes(map[string]interface{}{
 	"level":   logger.LEVEL,
-	"time":    logger.TIME,
+	"time":    logger.TIMESTAMP,
 	"service": "go-test"})
