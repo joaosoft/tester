@@ -1,8 +1,6 @@
 package gotest
 
 import (
-	"fmt"
-
 	"github.com/joaosoft/go-setup/service"
 )
 
@@ -58,7 +56,7 @@ func (runner *ScenarioRunner) Setup() error {
 	for _, scenario := range runner.scenarios {
 		services = append(services, scenario.Setup...)
 	}
-	fmt.Printf("%d", len(services))
+
 	runner.gosetup = gosetup.NewGoSetup(gosetup.WithRunInBackground(true), gosetup.WithLogger(log), gosetup.WithServices(services))
 	if err := runner.gosetup.Run(); err != nil {
 		return err
