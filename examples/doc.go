@@ -6,4 +6,4 @@ you just need to define the test structure and run it.
 example on https://github.com/joaosoft/go-test/tree/master/bin/launcher
 
 */
-package main
+package examples
