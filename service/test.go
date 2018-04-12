@@ -10,26 +10,29 @@ import (
 type GoTest struct {
 	tests  map[string]*TestFile
 	runner IRunner
+	config *AppConfig
 }
 
 // NewGoTest ...make
 func NewGoTest(options ...GoTestOption) *GoTest {
 	log.Info("starting GoTest Service")
-	test := &GoTest{
-		tests: make(map[string]*TestFile, 0),
-	}
-
-	global["path"] = defaultPath
 
 	// load configuration file
-	app := &AppConfig{}
-	if _, err := readFile("./config/app.json", app); err != nil {
+	configApp := &AppConfig{}
+	if _, err := readFile("./config/app.json", configApp); err != nil {
 		log.Error(err)
 	} else {
-		level, _ := golog.ParseLevel(app.Log.Level)
+		level, _ := golog.ParseLevel(configApp.Log.Level)
 		log.Debugf("setting log level to %s", level)
 		WithLogLevel(level)
 	}
+
+	test := &GoTest{
+		tests:  make(map[string]*TestFile, 0),
+		config: configApp,
+	}
+
+	global["path"] = defaultPath
 
 	test.Reconfigure(options...)
 
