@@ -23,7 +23,7 @@ make env
 ```
 
 ## Usage 
-This example is available in the project at [go-test/bin/launcher](https://github.com/joaosoft/go-test/tree/master/bin/launcher)
+This example is available in the project at [go-test/example](https://github.com/joaosoft/go-test/tree/master/example)
 
 ```go
 
