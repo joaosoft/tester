@@ -3,7 +3,7 @@ package gotest
 import (
 	"path/filepath"
 
-	logger "github.com/joaosoft/go-log/service"
+	"github.com/joaosoft/go-log/service"
 )
 
 // GoTest ...
@@ -22,11 +22,11 @@ func NewGoTest(options ...GoTestOption) *GoTest {
 	global["path"] = defaultPath
 
 	// load configuration file
-	app := &App{}
-	if _, err := readFile("config/app.json", app); err != nil {
+	app := &AppConfig{}
+	if _, err := readFile("./config/app.json", app); err != nil {
 		log.Error(err)
 	} else {
-		level, _ := logger.ParseLevel(app.Log.Level)
+		level, _ := golog.ParseLevel(app.Log.Level)
 		log.Debugf("setting log level to %s", level)
 		WithLogLevel(level)
 	}
