@@ -19,7 +19,7 @@ func NewGoTest(options ...GoTestOption) *GoTest {
 
 	// load configuration file
 	configApp := &AppConfig{}
-	if _, err := readFile("./config/app.json", configApp); err != nil {
+	if _, err := readFile("/config/app.json", configApp); err != nil {
 		log.Error(err)
 	} else {
 		level, _ := golog.ParseLevel(configApp.Log.Level)
@@ -31,8 +31,6 @@ func NewGoTest(options ...GoTestOption) *GoTest {
 		tests:  make(map[string]*TestFile, 0),
 		config: configApp,
 	}
-
-	global["path"] = defaultPath
 
 	test.Reconfigure(options...)
 
