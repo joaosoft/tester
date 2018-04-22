@@ -13,7 +13,7 @@ import (
 type Test struct {
 	tests  map[string]*TestFile
 	runner IRunner
-	config *goTestConfig
+	config *TestConfig
 	pm     *gomanager.Manager
 }
 

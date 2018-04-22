@@ -2,11 +2,11 @@ package gotest
 
 // appConfig ...
 type appConfig struct {
-	GoTest goTestConfig `json:"gotest"`
+	GoTest TestConfig `json:"gotest"`
 }
 
-// goTestConfig ...
-type goTestConfig struct {
+// TestConfig ...
+type TestConfig struct {
 	Log struct {
 		Level string `json:"level"`
 	} `json:"log"`
