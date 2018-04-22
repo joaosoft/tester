@@ -15,7 +15,7 @@ type Test struct {
 	runner        IRunner
 	config        *TestConfig
 	pm            *gomanager.Manager
-	logIsExternal bool
+	isLogExternal bool
 }
 
 // NewGoTest ...make
@@ -41,7 +41,7 @@ func NewGoTest(options ...TestOption) *Test {
 
 	test.Reconfigure(options...)
 
-	if test.logIsExternal {
+	if test.isLogExternal {
 		pm.Reconfigure(gomanager.WithLogger(log))
 	}
 
