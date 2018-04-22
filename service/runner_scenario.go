@@ -13,7 +13,7 @@ type ISystem interface {
 // ScenarioRunner ...
 type ScenarioRunner struct {
 	scenarios []*Scenario
-	gosetup   *gosetup.GoSetup
+	gosetup   *gosetup.Setup
 }
 
 // NewScenarioRunner ...

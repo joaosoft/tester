@@ -9,17 +9,17 @@ import (
 	"github.com/joaosoft/go-manager/service"
 )
 
-// GoTest ...
-type GoTest struct {
+// Test ...
+type Test struct {
 	tests  map[string]*TestFile
 	runner IRunner
 	config *goTestConfig
-	pm     *gomanager.GoManager
+	pm     *gomanager.Manager
 }
 
 // NewGoTest ...make
-func NewGoTest(options ...GoTestOption) *GoTest {
-	log.Info("starting GoTest Service")
+func NewGoTest(options ...TestOption) *Test {
+	log.Info("starting Test Service")
 	pm := gomanager.NewManager(gomanager.WithRunInBackground(false))
 
 	// load configuration file
@@ -33,7 +33,7 @@ func NewGoTest(options ...GoTestOption) *GoTest {
 		WithLogLevel(level)
 	}
 
-	test := &GoTest{
+	test := &Test{
 		tests:  make(map[string]*TestFile, 0),
 		config: &appConfig.GoTest,
 	}
@@ -44,12 +44,12 @@ func NewGoTest(options ...GoTestOption) *GoTest {
 }
 
 // Run ...
-func (gotest *GoTest) Run() error {
+func (test *Test) Run() error {
 	files, err := filepath.Glob(global[path_key].(string) + "*.json")
 	if err != nil {
 		return err
 	}
-	if err := gotest.execute(files); err != nil {
+	if err := test.execute(files); err != nil {
 		log.Error(err)
 		return err
 	}
@@ -58,8 +58,8 @@ func (gotest *GoTest) Run() error {
 }
 
 // RunSingle ...
-func (gotest *GoTest) RunSingle(file string) error {
-	if err := gotest.execute([]string{file}); err != nil {
+func (test *Test) RunSingle(file string) error {
+	if err := test.execute([]string{file}); err != nil {
 		log.Error(err)
 		return err
 	}
@@ -67,18 +67,18 @@ func (gotest *GoTest) RunSingle(file string) error {
 	return nil
 }
 
-func (gotest *GoTest) execute(files []string) error {
+func (test *Test) execute(files []string) error {
 	for _, file := range files {
 		log.Infof("loading test file %s", file)
 		testsOnFile := &TestFile{}
 		if _, err := readFile(file, testsOnFile); err != nil {
 			return err
 		}
-		gotest.tests[file] = testsOnFile
+		test.tests[file] = testsOnFile
 	}
 
-	gotest.runner = NewRunner(gotest.tests)
-	if err := gotest.runner.Run(); err != nil {
+	test.runner = NewRunner(test.tests)
+	if err := test.runner.Run(); err != nil {
 		log.Info("error running test files")
 		return err
 	}

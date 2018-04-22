@@ -3,22 +3,22 @@ package gotest
 import (
 	"strings"
 
-	logger "github.com/joaosoft/go-log/service"
+	"github.com/joaosoft/go-log/service"
 )
 
-// GoTestOption ...
-type GoTestOption func(gotest *GoTest)
+// TestOption ...
+type TestOption func(test *Test)
 
 // Reconfigure ...
-func (gotest *GoTest) Reconfigure(options ...GoTestOption) {
+func (test *Test) Reconfigure(options ...TestOption) {
 	for _, option := range options {
-		option(gotest)
+		option(test)
 	}
 }
 
 // WithPath ...
-func WithPath(path string) GoTestOption {
-	return func(gotest *GoTest) {
+func WithPath(path string) TestOption {
+	return func(test *Test) {
 		if path != "" {
 			if !strings.HasSuffix(path, "/") {
 				path += "/"
@@ -29,15 +29,15 @@ func WithPath(path string) GoTestOption {
 }
 
 // WithLogger ...
-func WithLogger(logger logger.ILog) GoTestOption {
-	return func(gotest *GoTest) {
+func WithLogger(logger golog.ILog) TestOption {
+	return func(test *Test) {
 		log = logger
 	}
 }
 
 // WithLogLevel ...
-func WithLogLevel(level logger.Level) GoTestOption {
-	return func(gotest *GoTest) {
+func WithLogLevel(level golog.Level) TestOption {
+	return func(test *Test) {
 		log.SetLevel(level)
 	}
 }
