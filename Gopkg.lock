@@ -53,19 +53,19 @@
   branch = "master"
   name = "github.com/joaosoft/go-manager"
   packages = ["service"]
-  revision = "98551472e88bdc4eaeb1ae8b784afb450e58852b"
+  revision = "88d31b850bf25132c41dd54313e0970880d9af12"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-mapper"
   packages = ["service"]
-  revision = "239d60aeef5576d6b4091ab62f7889da6525151b"
+  revision = "43685f6e252cc647cc91f3f19fdf9a7fe36a0431"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-setup"
   packages = ["service"]
-  revision = "c99aad874407973fea41699c77137ed6b52d7aa4"
+  revision = "7d9904a414416651249a3acab431b6f0e3b8b360"
 
 [[projects]]
   branch = "master"

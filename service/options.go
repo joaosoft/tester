@@ -32,6 +32,7 @@ func WithPath(path string) TestOption {
 func WithLogger(logger golog.ILog) TestOption {
 	return func(test *Test) {
 		log = logger
+		test.logIsExternal = true
 	}
 }
 

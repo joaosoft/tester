@@ -11,10 +11,11 @@ import (
 
 // Test ...
 type Test struct {
-	tests  map[string]*TestFile
-	runner IRunner
-	config *TestConfig
-	pm     *gomanager.Manager
+	tests         map[string]*TestFile
+	runner        IRunner
+	config        *TestConfig
+	pm            *gomanager.Manager
+	logIsExternal bool
 }
 
 // NewGoTest ...make
@@ -39,6 +40,10 @@ func NewGoTest(options ...TestOption) *Test {
 	}
 
 	test.Reconfigure(options...)
+
+	if test.logIsExternal {
+		pm.Reconfigure(gomanager.WithLogger(log))
+	}
 
 	return test
 }
