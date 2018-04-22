@@ -3,6 +3,8 @@ package gotest
 import (
 	"fmt"
 
+	"encoding/json"
+
 	"github.com/joaosoft/go-manager/service"
 )
 
@@ -26,7 +28,12 @@ func (runner *HttpRunner) Run() error {
 			headers = *test.Headers
 		}
 
-		status, response, err := gateway.Request(test.Method, test.Host, test.Route, headers, test.Body)
+		body, err := json.Marshal(test.Body)
+		if err != nil {
+			return fmt.Errorf("error executing http test [ error: %s ]", err)
+		}
+
+		status, response, err := gateway.Request(test.Method, test.Host, test.Route, headers, body)
 
 		if err != nil {
 			return fmt.Errorf("error executing http test [ error: %s ]", err)
