@@ -1,0 +1,7 @@
+{
+  "gotest": {
+    "log": {
+      "level": "info"
+    }
+  }
+}

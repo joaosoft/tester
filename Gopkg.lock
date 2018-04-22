@@ -14,6 +14,12 @@
   revision = "a0637b1543645181061469efea75f57ad2e3f23a"
 
 [[projects]]
+  name = "github.com/fsnotify/fsnotify"
+  packages = ["."]
+  revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
+  version = "v1.4.7"
+
+[[projects]]
   name = "github.com/go-sql-driver/mysql"
   packages = ["."]
   revision = "a0583e0143b1624142adab07e0e97fe106d99561"
@@ -27,39 +33,51 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/hashicorp/hcl"
+  packages = [".","hcl/ast","hcl/parser","hcl/printer","hcl/scanner","hcl/strconv","hcl/token","json/parser","json/scanner","json/token"]
+  revision = "ef8a98b0bbce4a65b5aa4c368430a80ddc533168"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/joaosoft/go-error"
+  packages = ["service"]
+  revision = "a44e27c13ad9fed6a8a813e8e6f8251768581404"
+
+[[projects]]
+  branch = "master"
   name = "github.com/joaosoft/go-log"
   packages = ["service"]
-  revision = "61345bb75a21add98098e0eeb987d311ca3f9912"
+  revision = "016bf289fcadeb8d4ed1536b0cc7a8f9ebc95ad2"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-manager"
   packages = ["service"]
-  revision = "b0bdc3b9c985c7bca2028a6d7e8ec22dc7247798"
+  revision = "2d1bdea18fe939f5c416ded53833f39993367193"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-mapper"
   packages = ["service"]
-  revision = "af10f5f6edeb838e3fcd78865d49ae3ac8422017"
+  revision = "17d6432e1609b6f5b11fc5976dbd4a7477259bcb"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-setup"
   packages = ["service"]
-  revision = "5503d9bd2c34b216c6ea23f2ad332d90fcd8d6c5"
+  revision = "afa151d036673d6c95c0b48bde10847a1c9e59ea"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-writer"
   packages = ["service"]
-  revision = "647f479089687d12ae88538c7b746c2fc89c02fb"
+  revision = "5916e348a3faa57e172332068979b8376c0e496a"
 
 [[projects]]
   name = "github.com/labstack/echo"
   packages = ["."]
-  revision = "a5d81b8d4a627f3f49dcb3164ef2bb5239682227"
-  version = "3.3.4"
+  revision = "6d227dfea4d2e52cb76856120b3c17f758139b4e"
+  version = "3.3.5"
 
 [[projects]]
   name = "github.com/labstack/gommon"
@@ -72,6 +90,12 @@
   name = "github.com/lib/pq"
   packages = [".","oid"]
   revision = "d34b9ff171c21ad295489235aec8b6626023cd04"
+
+[[projects]]
+  name = "github.com/magiconair/properties"
+  packages = ["."]
+  revision = "c3beff4c2358b44d0493c7dda585e7db7ff28ae6"
+  version = "v1.7.6"
 
 [[projects]]
   name = "github.com/mattn/go-colorable"
@@ -89,7 +113,13 @@
   branch = "master"
   name = "github.com/mediocregopher/radix.v3"
   packages = [".","resp"]
-  revision = "ad2e28d1563c76d5ae7b62a66f12e72c208f461d"
+  revision = "b5a766c05e2832a5c3d05ddebe09e9f7dffa3ee3"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/mitchellh/mapstructure"
+  packages = ["."]
+  revision = "00c29f56e2386353d58c599509e8dc3801b0d716"
 
 [[projects]]
   name = "github.com/nsqio/go-nsq"
@@ -104,10 +134,46 @@
   version = "v1.3.0"
 
 [[projects]]
+  name = "github.com/pelletier/go-toml"
+  packages = ["."]
+  revision = "acdc4509485b587f5e675510c4f2c63e90ff68a8"
+  version = "v1.1.0"
+
+[[projects]]
   name = "github.com/satori/go.uuid"
   packages = ["."]
   revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
   version = "v1.2.0"
+
+[[projects]]
+  name = "github.com/spf13/afero"
+  packages = [".","mem"]
+  revision = "63644898a8da0bc22138abf860edaf5277b6102e"
+  version = "v1.1.0"
+
+[[projects]]
+  name = "github.com/spf13/cast"
+  packages = ["."]
+  revision = "8965335b8c7107321228e3e3702cab9832751bac"
+  version = "v1.2.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/spf13/jwalterweatherman"
+  packages = ["."]
+  revision = "7c0cea34c8ece3fbeb2b27ab9b59511d360fb394"
+
+[[projects]]
+  name = "github.com/spf13/pflag"
+  packages = ["."]
+  revision = "583c0c0531f06d5278b7d917446061adc344b5cd"
+  version = "v1.0.1"
+
+[[projects]]
+  name = "github.com/spf13/viper"
+  packages = ["."]
+  revision = "b5e8006cbee93ec955a89ab31e0e3ce3204f3736"
+  version = "v1.0.2"
 
 [[projects]]
   branch = "master"
@@ -125,23 +191,23 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["acme","acme/autocert"]
-  revision = "f70185d77e8278766928032ee1355e3da47e7181"
+  revision = "e73bf333ef8920dbb52ad18d4bd38ad9d9bc76d7"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/net"
   packages = ["html","html/atom","html/charset"]
-  revision = "61147c48b25b599e5b561d2e9c4f3e1ef489ca41"
+  revision = "5f9ae10d9af5b1c89ae6904293b14b064d4ada23"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "3b87a42e500a6dc65dae1a55d0b641295971163e"
+  revision = "79b0c6888797020a994db17c8510466c72fe75d9"
 
 [[projects]]
   name = "golang.org/x/text"
-  packages = ["encoding","encoding/charmap","encoding/htmlindex","encoding/internal","encoding/internal/identifier","encoding/japanese","encoding/korean","encoding/simplifiedchinese","encoding/traditionalchinese","encoding/unicode","internal/gen","internal/tag","internal/utf8internal","language","runes","transform","unicode/cldr"]
+  packages = ["encoding","encoding/charmap","encoding/htmlindex","encoding/internal","encoding/internal/identifier","encoding/japanese","encoding/korean","encoding/simplifiedchinese","encoding/traditionalchinese","encoding/unicode","internal/gen","internal/tag","internal/triegen","internal/ucd","internal/utf8internal","language","runes","transform","unicode/cldr","unicode/norm"]
   revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
   version = "v0.3.0"
 
@@ -154,6 +220,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "71429959a8cdb8839c96bb09f085ee69be6f0f80aa3e02b3250e0383de15df03"
+  inputs-digest = "9f7b7db2f50ebaed40070bc2b8b1d07807534d6dda1f307948c29f49e378fe23"
   solver-name = "gps-cdcl"
   solver-version = 1

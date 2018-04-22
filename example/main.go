@@ -12,7 +12,7 @@ func main() {
 	var log = golog.NewLogDefault("go-test", golog.InfoLevel)
 
 	start := time.Now()
-	test := gotest.NewGoTest(gotest.WithPath("./example"))
+	test := gotest.NewGoTest(gotest.WithPath("/example"))
 
 	test.Run()
 

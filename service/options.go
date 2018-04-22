@@ -23,7 +23,7 @@ func WithPath(path string) GoTestOption {
 			if !strings.HasSuffix(path, "/") {
 				path += "/"
 			}
-			global["path"] = path
+			global[path_key] = path
 		}
 	}
 }

@@ -74,7 +74,7 @@ func (runner *ScenarioRunner) Teardown() error {
 
 // IsToRunOnce ...
 func (scenario *Scenario) IsToRunOnce() bool {
-	if value, ok := scenario.Options["run"]; !ok || value != CONST_RUN_ONCE {
+	if value, ok := scenario.Options["run"]; !ok || value != config_run_once {
 		return false
 	}
 	return true

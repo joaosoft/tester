@@ -1,6 +1,7 @@
 package gotest
 
 const (
-	defaultPath    = "."
-	CONST_RUN_ONCE = "true"
+	defaultPath     = "."
+	config_run_once = "true"
+	path_key        = "path"
 )
