@@ -23,6 +23,16 @@ func NewGoTest(options ...TestOption) *Test {
 	log.Info("starting Test Service")
 	pm := gomanager.NewManager(gomanager.WithRunInBackground(false))
 
+	test := &Test{
+		tests: make(map[string]*TestFile, 0),
+	}
+
+	test.Reconfigure(options...)
+
+	if test.isLogExternal {
+		pm.Reconfigure(gomanager.WithLogger(log))
+	}
+
 	// load configuration file
 	appConfig := &appConfig{}
 	if simpleConfig, err := gomanager.NewSimpleConfig(fmt.Sprintf("/config/app.%s.json", getEnv()), appConfig); err != nil {
@@ -31,19 +41,10 @@ func NewGoTest(options ...TestOption) *Test {
 		pm.AddConfig("config_app", simpleConfig)
 		level, _ := golog.ParseLevel(appConfig.GoTest.Log.Level)
 		log.Debugf("setting log level to %s", level)
-		WithLogLevel(level)
+		log.Reconfigure(golog.WithLevel(level))
 	}
 
-	test := &Test{
-		tests:  make(map[string]*TestFile, 0),
-		config: &appConfig.GoTest,
-	}
-
-	test.Reconfigure(options...)
-
-	if test.isLogExternal {
-		pm.Reconfigure(gomanager.WithLogger(log))
-	}
+	test.config = &appConfig.GoTest
 
 	return test
 }

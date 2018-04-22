@@ -47,25 +47,25 @@
   branch = "master"
   name = "github.com/joaosoft/go-log"
   packages = ["service"]
-  revision = "2e92e8f22a185fcd24ceb1e38f392d1ad6399fca"
+  revision = "bb80ed104841dee7e3cc38a161c28bffc3fd274e"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-manager"
   packages = ["service"]
-  revision = "088d2d761b97ab0bbf87081bfc3950217764cdbf"
+  revision = "ab79c78a5d6def40500b36e2059288ae568cc1f0"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-mapper"
   packages = ["service"]
-  revision = "53edb41d620b144e9c02da0dafc896dd6b600717"
+  revision = "a98466294409f8a73872f3f897de069c440c33c6"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-setup"
   packages = ["service"]
-  revision = "47ecdb56fadea41381e29a16521c00a98534e854"
+  revision = "e551cf5b88734a585fdd6c88c8dd1a80562b4973"
 
 [[projects]]
   branch = "master"
