@@ -1,11 +1,11 @@
 package main
 
 import (
-	"go-test/service"
+	"go-test/app"
 
 	"time"
 
-	"github.com/joaosoft/go-log/service"
+	golog "github.com/joaosoft/go-log/app"
 )
 
 func main() {

@@ -5,7 +5,7 @@ import (
 
 	"encoding/json"
 
-	"github.com/joaosoft/go-setup/service"
+	gosetup "github.com/joaosoft/go-setup/app"
 )
 
 // TestFile ...

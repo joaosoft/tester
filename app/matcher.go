@@ -3,7 +3,7 @@ package gotest
 import (
 	"fmt"
 
-	gomapper "github.com/joaosoft/go-mapper/service"
+	gomapper "github.com/joaosoft/go-mapper/app"
 )
 
 type IMatcher interface {

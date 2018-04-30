@@ -5,7 +5,7 @@ import (
 
 	"encoding/json"
 
-	"github.com/joaosoft/go-manager/service"
+	gomanager "github.com/joaosoft/go-manager/app"
 )
 
 type HttpRunner struct {

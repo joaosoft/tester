@@ -40,38 +40,38 @@
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-error"
-  packages = ["service"]
-  revision = "a44e27c13ad9fed6a8a813e8e6f8251768581404"
+  packages = ["app"]
+  revision = "1d69617e638d542f7377639e580061a541d9073e"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-log"
-  packages = ["service"]
-  revision = "bb80ed104841dee7e3cc38a161c28bffc3fd274e"
+  packages = ["app"]
+  revision = "a6f5cd4aea4eee23d9717651365df15375fff27f"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-manager"
-  packages = ["service"]
-  revision = "f33d67b3121ef16230a7366ee4201a3075206709"
+  packages = ["app"]
+  revision = "45db3ffbc1ea059c71930508d7238a023e36e02c"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-mapper"
-  packages = ["service"]
-  revision = "d44d8ec0c9b76a1afb69bdd31a7727b9ec6961cd"
+  packages = ["app"]
+  revision = "6eae36edd8e4df4607b5e41455670808517164ae"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-setup"
-  packages = ["service"]
-  revision = "e551cf5b88734a585fdd6c88c8dd1a80562b4973"
+  packages = ["app"]
+  revision = "699c144326a0db5c7a2b736d7802c167fa5db799"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-writer"
-  packages = ["service"]
-  revision = "5916e348a3faa57e172332068979b8376c0e496a"
+  packages = ["app"]
+  revision = "791f32ceaea26e070eb198a04669b056558a1c2c"
 
 [[projects]]
   name = "github.com/labstack/echo"
@@ -82,8 +82,8 @@
 [[projects]]
   name = "github.com/labstack/gommon"
   packages = ["color","log"]
-  revision = "6fe1405d73ec4bd4cd8a4ac8e2a2b2bf95d03954"
-  version = "0.2.4"
+  revision = "588f4e8bddc6cb45c27b448e925c7fd6a5545434"
+  version = "0.2.5"
 
 [[projects]]
   branch = "master"
@@ -191,7 +191,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["acme","acme/autocert"]
-  revision = "e73bf333ef8920dbb52ad18d4bd38ad9d9bc76d7"
+  revision = "ae8bce0030810cf999bb2b9868ae5c7c58e6343b"
 
 [[projects]]
   branch = "master"
@@ -203,7 +203,7 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "79b0c6888797020a994db17c8510466c72fe75d9"
+  revision = "4adea008a5e5f820b6028611ae0b6b3fbcec534b"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -220,6 +220,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "9f7b7db2f50ebaed40070bc2b8b1d07807534d6dda1f307948c29f49e378fe23"
+  inputs-digest = "c1b662317b9a9e35bb6dda4034ea038af13a2fdca1136198dc50483b8e04c85e"
   solver-name = "gps-cdcl"
   solver-version = 1

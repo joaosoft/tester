@@ -1,5 +1,5 @@
 # go-test
-[![Build Status](https://travis-ci.org/joaosoft/go-test.svg?branch=master)](https://travis-ci.org/joaosoft/go-test) | [![codecov](https://codecov.io/gh/joaosoft/go-test/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/go-test) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/go-test)](https://goreportcard.com/report/github.com/joaosoft/go-test) | [![GoDoc](https://godoc.org/github.com/joaosoft/go-test?status.svg)](https://godoc.org/github.com/joaosoft/go-test/service)
+[![Build Status](https://travis-ci.org/joaosoft/go-test.svg?branch=master)](https://travis-ci.org/joaosoft/go-test) | [![codecov](https://codecov.io/gh/joaosoft/go-test/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/go-test) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/go-test)](https://goreportcard.com/report/github.com/joaosoft/go-test) | [![GoDoc](https://godoc.org/github.com/joaosoft/go-test?status.svg)](https://godoc.org/github.com/joaosoft/go-test/app)
 
 A package framework to test webservices.
 
@@ -12,7 +12,7 @@ Project dependencies are managed using Dep. Read more about [Dep](https://github
 
 >### Go
 ```
-go get github.com/joaosoft/go-test/service
+go get github.com/joaosoft/go-test/app
 ```
 
 ## Docker
