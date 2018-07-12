@@ -1,11 +1,11 @@
-package gotest
+package tester
 
 import (
 	"time"
 
 	"encoding/json"
 
-	gosetup "github.com/joaosoft/go-setup/app"
+	setup "github.com/joaosoft/setup"
 )
 
 // TestFile ...
@@ -19,7 +19,7 @@ type TestFile struct {
 type Scenario struct {
 	Options map[string]string   `json:"options,omitempty"`
 	Files   []string            `json:"files,omitempty"`
-	Setup   []*gosetup.Services `json:"setup,omitempty"`
+	Setup   []*setup.Services `json:"setup,omitempty"`
 	Http    []HttpTest          `json:"http"`
 }
 

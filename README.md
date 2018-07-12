@@ -1,5 +1,5 @@
-# go-test
-[![Build Status](https://travis-ci.org/joaosoft/go-test.svg?branch=master)](https://travis-ci.org/joaosoft/go-test) | [![codecov](https://codecov.io/gh/joaosoft/go-test/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/go-test) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/go-test)](https://goreportcard.com/report/github.com/joaosoft/go-test) | [![GoDoc](https://godoc.org/github.com/joaosoft/go-test?status.svg)](https://godoc.org/github.com/joaosoft/go-test/app)
+# tester
+[![Build Status](https://travis-ci.org/joaosoft/tester.svg?branch=master)](https://travis-ci.org/joaosoft/tester) | [![codecov](https://codecov.io/gh/joaosoft/tester/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/tester) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/tester)](https://goreportcard.com/report/github.com/joaosoft/tester) | [![GoDoc](https://godoc.org/github.com/joaosoft/tester?status.svg)](https://godoc.org/github.com/joaosoft/tester)
 
 A package framework to test webservices.
 
@@ -12,7 +12,7 @@ Project dependencies are managed using Dep. Read more about [Dep](https://github
 
 >### Go
 ```
-go get github.com/joaosoft/go-test/app
+go get github.com/joaosoft/tester
 ```
 
 ## Docker
@@ -23,7 +23,7 @@ make env
 ```
 
 ## Usage 
-This example is available in the project at [go-test/example](https://github.com/joaosoft/go-test/tree/master/example)
+This example is available in the project at [tester/example](https://github.com/joaosoft/tester/tree/master/example)
 
 ```go
 

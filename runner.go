@@ -1,4 +1,4 @@
-package gotest
+package tester
 
 import "time"
 
@@ -20,7 +20,7 @@ func NewRunner(testFiles map[string]*TestFile) *Runner {
 
 func (runner *Runner) Run() error {
 	for testFileName, testFile := range runner.testFiles {
-		log.Infof("running test file %s", testFileName)
+		log.Infof("running tester file %s", testFileName)
 
 		scenarioRunner, err := NewScenarioRunner(&testFile.Scenario)
 		if err != nil {

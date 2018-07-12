@@ -1,4 +1,4 @@
-package gotest
+package tester
 
 func (tests *Tests) Run(scenarioRunner *ScenarioRunner) error {
 	log.Info("run http tests...")

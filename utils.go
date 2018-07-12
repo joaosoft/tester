@@ -1,4 +1,4 @@
-package gotest
+package tester
 
 import (
 	"bufio"

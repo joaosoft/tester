@@ -1,11 +1,11 @@
-package gotest
+package tester
 
 import (
 	"fmt"
 
 	"encoding/json"
 
-	gomanager "github.com/joaosoft/go-manager/app"
+	manager "github.com/joaosoft/manager"
 )
 
 type HttpRunner struct {
@@ -19,10 +19,10 @@ func NewWebRunner(scenarioRunner *ScenarioRunner, tests []HttpTest) *HttpRunner 
 }
 
 func (runner *HttpRunner) Run() error {
-	gateway := gomanager.NewSimpleGateway()
+	gateway := manager.NewSimpleGateway()
 
 	for _, test := range runner.tests {
-		log.Infof("running http test with [ name: %s, description: %s ]", test.Name, test.Description)
+		log.Infof("running http tester with [ name: %s, description: %s ]", test.Name, test.Description)
 		var headers HttpHeaders
 		if test.Headers != nil {
 			headers = *test.Headers
@@ -30,13 +30,13 @@ func (runner *HttpRunner) Run() error {
 
 		body, err := json.Marshal(test.Body)
 		if err != nil {
-			return fmt.Errorf("error executing http test [ error: %s ]", err)
+			return fmt.Errorf("error executing http tester [ error: %s ]", err)
 		}
 
 		status, response, err := gateway.Request(test.Method, test.Host, test.Route, headers, body)
 
 		if err != nil {
-			return fmt.Errorf("error executing http test [ error: %s ]", err)
+			return fmt.Errorf("error executing http tester [ error: %s ]", err)
 		}
 
 		if status != test.Expected.Status {

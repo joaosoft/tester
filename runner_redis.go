@@ -1,4 +1,4 @@
-package gotest
+package tester
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ func NewRedisRunner(scenarioRunner *ScenarioRunner, services []RedisTest) *Redis
 
 func (runner *RedisRunner) Run() error {
 	for _, test := range runner.tests {
-		log.Infof("running redis test with [name: %s, description %s ]", test.Name, test.Description)
+		log.Infof("running redis tester with [name: %s, description %s ]", test.Name, test.Description)
 
 		var conn *redis.Pool
 		var err error

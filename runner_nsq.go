@@ -1,4 +1,4 @@
-package gotest
+package tester
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ func NewNSQRunner(scenarioRunner *ScenarioRunner, services []NsqTest) *NSQRunner
 
 func (runner *NSQRunner) Run() error {
 	for _, test := range runner.tests {
-		log.Infof("running sql test [ %s ] with description [ %s] ", test.Name, test.Description)
+		log.Infof("running sql tester [ %s ] with description [ %s] ", test.Name, test.Description)
 
 		var conn *nsqlib.Producer
 		var err error

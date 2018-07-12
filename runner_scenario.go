@@ -1,7 +1,7 @@
-package gotest
+package tester
 
 import (
-	gosetup "github.com/joaosoft/go-setup/app"
+	setup "github.com/joaosoft/setup"
 )
 
 // ISystem ...
@@ -13,7 +13,7 @@ type ISystem interface {
 // ScenarioRunner ...
 type ScenarioRunner struct {
 	scenarios []*Scenario
-	gosetup   *gosetup.Setup
+	setup     *setup.Setup
 }
 
 // NewScenarioRunner ...
@@ -50,15 +50,15 @@ func load(scenario *Scenario) ([]*Scenario, error) {
 
 // Setup ...
 func (runner *ScenarioRunner) Setup() error {
-	var services []*gosetup.Services
+	var services []*setup.Services
 
 	log.Info("setup scenario...")
 	for _, scenario := range runner.scenarios {
 		services = append(services, scenario.Setup...)
 	}
 
-	runner.gosetup = gosetup.NewGoSetup(gosetup.WithRunInBackground(true), gosetup.WithLogger(log), gosetup.WithServices(services))
-	if err := runner.gosetup.Run(); err != nil {
+	runner.setup = setup.NewSetup(setup.WithRunInBackground(true), setup.WithLogger(log), setup.WithServices(services))
+	if err := runner.setup.Run(); err != nil {
 		return err
 	}
 
@@ -67,7 +67,7 @@ func (runner *ScenarioRunner) Setup() error {
 
 // Teardown ...
 func (runner *ScenarioRunner) Teardown() error {
-	runner.gosetup.Stop()
+	runner.setup.Stop()
 
 	return nil
 }

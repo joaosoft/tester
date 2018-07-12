@@ -1,61 +1,61 @@
-package gotest
+package tester
 
 import (
 	"path/filepath"
 
 	"fmt"
 
-	golog "github.com/joaosoft/go-log/app"
-	gomanager "github.com/joaosoft/go-manager/app"
+	logger "github.com/joaosoft/logger"
+	manager "github.com/joaosoft/manager"
 )
 
 // Test ...
-type Test struct {
+type Tester struct {
 	tests         map[string]*TestFile
 	runner        IRunner
-	config        *TestConfig
-	pm            *gomanager.Manager
+	config        *TesterConfig
+	pm            *manager.Manager
 	isLogExternal bool
 }
 
 // NewGoTest ...make
-func NewGoTest(options ...TestOption) *Test {
+func NewTester(options ...TesterOption) *Tester {
 	log.Info("starting Test Service")
-	pm := gomanager.NewManager(gomanager.WithRunInBackground(false))
+	pm := manager.NewManager(manager.WithRunInBackground(false))
 
-	test := &Test{
+	test := &Tester{
 		tests: make(map[string]*TestFile, 0),
 	}
 
 	test.Reconfigure(options...)
 
 	if test.isLogExternal {
-		pm.Reconfigure(gomanager.WithLogger(log))
+		pm.Reconfigure(manager.WithLogger(log))
 	}
 
 	// load configuration file
-	appConfig := &appConfig{}
-	if simpleConfig, err := gomanager.NewSimpleConfig(fmt.Sprintf("/config/app.%s.json", getEnv()), appConfig); err != nil {
+	appConfig := &AppConfig{}
+	if simpleConfig, err := manager.NewSimpleConfig(fmt.Sprintf("/config/app.%s.json", getEnv()), appConfig); err != nil {
 		log.Error(err.Error())
 	} else {
 		pm.AddConfig("config_app", simpleConfig)
-		level, _ := golog.ParseLevel(appConfig.GoTest.Log.Level)
+		level, _ := logger.ParseLevel(appConfig.Tester.Log.Level)
 		log.Debugf("setting log level to %s", level)
-		log.Reconfigure(golog.WithLevel(level))
+		log.Reconfigure(logger.WithLevel(level))
 	}
 
-	test.config = &appConfig.GoTest
+	test.config = &appConfig.Tester
 
 	return test
 }
 
 // Run ...
-func (test *Test) Run() error {
+func (tester *Tester) Run() error {
 	files, err := filepath.Glob(global[path_key].(string) + "*.json")
 	if err != nil {
 		return err
 	}
-	if err := test.execute(files); err != nil {
+	if err := tester.execute(files); err != nil {
 		log.Error(err)
 		return err
 	}
@@ -64,7 +64,7 @@ func (test *Test) Run() error {
 }
 
 // RunSingle ...
-func (test *Test) RunSingle(file string) error {
+func (test *Tester) RunSingle(file string) error {
 	if err := test.execute([]string{file}); err != nil {
 		log.Error(err)
 		return err
@@ -73,7 +73,7 @@ func (test *Test) RunSingle(file string) error {
 	return nil
 }
 
-func (test *Test) execute(files []string) error {
+func (test *Tester) execute(files []string) error {
 	for _, file := range files {
 		log.Infof("loading test file %s", file)
 		testsOnFile := &TestFile{}

@@ -1,9 +1,9 @@
-package gotest
+package tester
 
 import (
 	"fmt"
 
-	gomapper "github.com/joaosoft/go-mapper/app"
+	mapper "github.com/joaosoft/mapper"
 )
 
 type IMatcher interface {
@@ -21,7 +21,7 @@ func NewMatcher(expected interface{}) IMatcher {
 }
 
 func (matcher Matcher) Match(obtained interface{}) error {
-	mapper := gomapper.NewMapper()
+	mapper := mapper.NewMapper()
 
 	expected_mapped, _ := mapper.Map(matcher.expected)
 	fmt.Printf("EXPECTED: %+v", expected_mapped)

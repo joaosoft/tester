@@ -1,18 +1,17 @@
 package main
 
 import (
-	"go-test/app"
-
+	"tester"
 	"time"
 
-	golog "github.com/joaosoft/go-log/app"
+	logger "github.com/joaosoft/logger"
 )
 
 func main() {
-	var log = golog.NewLogDefault("go-test", golog.InfoLevel)
+	var log = logger.NewLogDefault("tester", logger.InfoLevel)
 
 	start := time.Now()
-	test := gotest.NewGoTest(gotest.WithPath("/example"))
+	test := tester.NewTester(tester.WithPath("/example"))
 
 	test.Run()
 
