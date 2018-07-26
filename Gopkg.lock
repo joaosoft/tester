@@ -2,10 +2,10 @@
 
 
 [[projects]]
-  branch = "master"
   name = "github.com/Benjamintf1/Expanded-Unmarshalled-Matchers"
   packages = ["."]
   revision = "f49d1795d752929500b8ed2289f1e21f10414667"
+  version = "1.0.0"
 
 [[projects]]
   branch = "go1"
@@ -52,43 +52,43 @@
   branch = "master"
   name = "github.com/joaosoft/errors"
   packages = ["."]
-  revision = "1d5bd3de67a4e2116faeab177d4a858d6eac3665"
+  revision = "26de174de522922a2e1b7520dba32fe23c6d0fd6"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-manager"
   packages = ["."]
-  revision = "5ccd51d62f92b6fb19b36de292b084f803dc1bd5"
+  revision = "7e0860cbbbcc6a32005c056309ed3e1c629727fb"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/logger"
   packages = ["."]
-  revision = "0f04d8349e325a20bcf83ca8dd52207fe2576290"
+  revision = "ac1eb19f94cbeff2fb525880b1d496973f91702b"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/manager"
   packages = ["."]
-  revision = "5ccd51d62f92b6fb19b36de292b084f803dc1bd5"
+  revision = "7e0860cbbbcc6a32005c056309ed3e1c629727fb"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/mapper"
   packages = ["."]
-  revision = "3894b7abb472b1e6aed29bec5c23111e07b6529d"
+  revision = "ed678b110f7065d3917c977ca2b89436cc545ecd"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/setup"
   packages = ["."]
-  revision = "48f1cd633bfea444d7a78b3a24ca91a839e03aba"
+  revision = "9e52e018cea848a617d1be94f2bd6eb923aa9059"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/writers"
   packages = ["."]
-  revision = "c6e9863c9c957294bb3682ef598e5320b01cdc8b"
+  revision = "3507d7c985a41451c44865cd100f384d3a312188"
 
 [[projects]]
   name = "github.com/labstack/echo"
@@ -145,7 +145,7 @@
   branch = "master"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
-  revision = "bb74f1db0675b241733089d5a1faa5dd8b0ef57b"
+  revision = "f15292f7a699fcc1a38a80977f80a046874ba8ac"
 
 [[projects]]
   name = "github.com/nsqio/go-nsq"
@@ -169,8 +169,8 @@
     "matchers/support/goraph/util",
     "types"
   ]
-  revision = "62bff4df71bdbc266561a0caee19f0594b17c240"
-  version = "v1.4.0"
+  revision = "b6ea1ea48f981d0f615a154a45eabb9dd466556d"
+  version = "v1.4.1"
 
 [[projects]]
   name = "github.com/pelletier/go-toml"
@@ -236,7 +236,7 @@
     "acme",
     "acme/autocert"
   ]
-  revision = "a49355c7e3f8fe157a85be2f77e6e269a0f89602"
+  revision = "c126467f60eb25f8f27e5a981f32a87e3965053f"
 
 [[projects]]
   branch = "master"
@@ -246,13 +246,13 @@
     "html/atom",
     "html/charset"
   ]
-  revision = "a45b4abe13d2d168ea021b6ec8d8798fe33a7cc9"
+  revision = "3673e40ba22529d22c3fd7c93e97b0ce50fa7bdd"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "1b2967e3c290b7c545b3db0deeda16e9be4f98a2"
+  revision = "e072cadbbdc8dd3d3ffa82b8b4b9304c261d9311"
 
 [[projects]]
   name = "golang.org/x/text"
