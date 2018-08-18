@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	logger "github.com/joaosoft/logger"
+	"github.com/joaosoft/manager"
 )
 
 // TesterOption ...
@@ -40,5 +41,12 @@ func WithLogger(logger logger.ILogger) TesterOption {
 func WithLogLevel(level logger.Level) TesterOption {
 	return func(tester *Tester) {
 		log.SetLevel(level)
+	}
+}
+
+// WithManager ...
+func WithManager(mgr *manager.Manager) TesterOption {
+	return func(setup *Tester) {
+		setup.pm = mgr
 	}
 }
