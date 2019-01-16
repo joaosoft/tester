@@ -2,7 +2,7 @@ package tester
 
 // AppConfig ...
 type AppConfig struct {
-	Tester TesterConfig `json:"tester"`
+	Tester *TesterConfig `json:"tester"`
 }
 
 // TesterConfig ...

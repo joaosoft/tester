@@ -37,14 +37,14 @@ func NewTester(options ...TesterOption) *Tester {
 	appConfig := &AppConfig{}
 	if simpleConfig, err := manager.NewSimpleConfig(fmt.Sprintf("/config/app.%s.json", getEnv()), appConfig); err != nil {
 		log.Error(err.Error())
-	} else {
+	} else if appConfig.Tester != nil {
 		pm.AddConfig("config_app", simpleConfig)
 		level, _ := logger.ParseLevel(appConfig.Tester.Log.Level)
 		log.Debugf("setting log level to %s", level)
 		log.Reconfigure(logger.WithLevel(level))
 	}
 
-	test.config = &appConfig.Tester
+	test.config = appConfig.Tester
 
 	return test
 }
