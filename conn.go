@@ -5,14 +5,18 @@ import (
 
 	"time"
 
-	redis "github.com/mediocregopher/radix.v3"
+	redis "github.com/go-redis/redis"
 	nsqlib "github.com/nsqio/go-nsq"
 )
 
 // createConnection ...
-func (config *RedisConfig) connect() (*redis.Pool, error) {
-	log.Infof("connecting with protocol [ %s ], address [ %s ] and size [ %d ]", config.Protocol, config.Address, config.Size)
-	return redis.NewPool(config.Protocol, config.Address, config.Size, nil)
+func (config *RedisConfig) connect() (*redis.Client, error) {
+	log.Infof("connecting with address [ %s ], database [ %d ]", config.Address, config.Database)
+	return redis.NewClient(&redis.Options{
+		Addr:     config.Address,
+		Password: config.Password,
+		DB:       config.Database,
+	}), nil
 }
 
 // createConnection ...

@@ -17,10 +17,10 @@ type TestFile struct {
 
 // Scenario ...
 type Scenario struct {
-	Options map[string]string   `json:"options,omitempty"`
-	Files   []string            `json:"files,omitempty"`
+	Options map[string]string `json:"options,omitempty"`
+	Files   []string          `json:"files,omitempty"`
 	Setup   []*setup.Services `json:"setup,omitempty"`
-	Http    []HttpTest          `json:"http"`
+	Http    []HttpTest        `json:"http"`
 }
 
 // Tests ...
@@ -109,9 +109,9 @@ type RedisTest struct {
 
 // RedisConfig ...
 type RedisConfig struct {
-	Protocol string `json:"protocol"`
 	Address  string `json:"address"`
-	Size     int    `json:"size"`
+	Password string `json:"password"`
+	Database int    `json:"database"`
 }
 
 type RedisCommand struct {

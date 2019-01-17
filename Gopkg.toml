@@ -26,8 +26,12 @@
 
 
 [[constraint]]
+  name = "github.com/go-redis/redis"
+  version = "6.15.1"
+
+[[constraint]]
   name = "github.com/go-sql-driver/mysql"
-  version = "1.4.0"
+  version = "1.4.1"
 
 [[constraint]]
   branch = "master"
@@ -46,12 +50,8 @@
   name = "github.com/joaosoft/setup"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/lib/pq"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/mediocregopher/radix.v3"
+  version = "1.0.0"
 
 [[constraint]]
   name = "github.com/nsqio/go-nsq"
@@ -60,7 +60,3 @@
 [prune]
   go-tests = true
   unused-packages = true
-
-[[override]]
-  name = "github.com/satori/go.uuid"
-  branch = "master"

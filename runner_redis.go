@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	redis "github.com/mediocregopher/radix.v3"
+	redis "github.com/go-redis/redis"
 )
 
 type RedisRunner struct {
@@ -21,7 +21,7 @@ func (runner *RedisRunner) Run() error {
 	for _, test := range runner.tests {
 		log.Infof("running redis tester with [name: %s, description %s ]", test.Name, test.Description)
 
-		var conn *redis.Pool
+		var conn *redis.Client
 		var err error
 		if conn, err = test.Configuration.connect(); err != nil {
 			return fmt.Errorf("failed to create redis connection")
@@ -40,15 +40,15 @@ func (runner *RedisRunner) Run() error {
 	return nil
 }
 
-func (runner *RedisRunner) runCommand(conn *redis.Pool, command *string, arguments []string) error {
+func (runner *RedisRunner) runCommand(conn *redis.Client, command *string, arguments []string) error {
 	log.Infof("executing redis command [ %s ] arguments [ %s ]", command, arguments)
-	if err := conn.Do(redis.Cmd(nil, *command, arguments...)); err != nil {
+	if err := conn.Do(*command, arguments).Err(); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (runner *RedisRunner) runFile(conn *redis.Pool, file *string) error {
+func (runner *RedisRunner) runFile(conn *redis.Client, file *string) error {
 	log.Infof("executing redis commands by file [ %s ]", *file)
 
 	if lines, err := readFileLines(*file); err != nil {
