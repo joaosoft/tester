@@ -27,8 +27,6 @@ func NewTester(options ...TesterOption) *Tester {
 		tests: make(map[string]*TestFile, 0),
 	}
 
-	test.Reconfigure(options...)
-
 	if test.isLogExternal {
 		pm.Reconfigure(manager.WithLogger(log))
 	}
@@ -42,9 +40,10 @@ func NewTester(options ...TesterOption) *Tester {
 		level, _ := logger.ParseLevel(appConfig.Tester.Log.Level)
 		log.Debugf("setting log level to %s", level)
 		log.Reconfigure(logger.WithLevel(level))
+		test.config = appConfig.Tester
 	}
 
-	test.config = appConfig.Tester
+	test.Reconfigure(options...)
 
 	return test
 }
