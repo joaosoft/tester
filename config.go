@@ -8,7 +8,7 @@ import (
 
 // AppConfig ...
 type AppConfig struct {
-	Tester *TesterConfig `json:"tester"`
+	Tester TesterConfig `json:"tester"`
 }
 
 // TesterConfig ...
@@ -19,13 +19,9 @@ type TesterConfig struct {
 }
 
 // NewConfig ...
-func NewConfig() (*TesterConfig, error) {
+func NewConfig() (*AppConfig, manager.IConfig, error) {
 	appConfig := &AppConfig{}
-	if _, err := manager.NewSimpleConfig(fmt.Sprintf("/config/app.%s.json", GetEnv()), appConfig); err != nil {
-		log.Error(err.Error())
+	simpleConfig, err := manager.NewSimpleConfig(fmt.Sprintf("/config/app.%s.json", GetEnv()), appConfig)
 
-		return &TesterConfig{}, err
-	}
-
-	return appConfig.Tester, nil
+	return appConfig, simpleConfig, err
 }

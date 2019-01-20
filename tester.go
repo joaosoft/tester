@@ -3,10 +3,8 @@ package tester
 import (
 	"path/filepath"
 
-	"fmt"
-
-	logger "github.com/joaosoft/logger"
-	manager "github.com/joaosoft/manager"
+	"github.com/joaosoft/logger"
+	"github.com/joaosoft/manager"
 )
 
 // Test ...
@@ -21,26 +19,25 @@ type Tester struct {
 // NewGoTest ...make
 func NewTester(options ...TesterOption) *Tester {
 	log.Info("starting Test Service")
+	config, simpleConfig, err := NewConfig()
 	pm := manager.NewManager(manager.WithRunInBackground(false))
 
 	test := &Tester{
-		tests: make(map[string]*TestFile, 0),
+		tests:  make(map[string]*TestFile, 0),
+		config: &config.Tester,
 	}
 
 	if test.isLogExternal {
 		pm.Reconfigure(manager.WithLogger(log))
 	}
 
-	// load configuration file
-	appConfig := &AppConfig{}
-	if simpleConfig, err := manager.NewSimpleConfig(fmt.Sprintf("/config/app.%s.json", GetEnv()), appConfig); err != nil {
+	if err != nil {
 		log.Error(err.Error())
-	} else if appConfig.Tester != nil {
-		pm.AddConfig("config_app", simpleConfig)
-		level, _ := logger.ParseLevel(appConfig.Tester.Log.Level)
+	} else {
+		test.pm.AddConfig("config_app", simpleConfig)
+		level, _ := logger.ParseLevel(config.Tester.Log.Level)
 		log.Debugf("setting log level to %s", level)
 		log.Reconfigure(logger.WithLevel(level))
-		test.config = appConfig.Tester
 	}
 
 	test.Reconfigure(options...)
