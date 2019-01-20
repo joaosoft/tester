@@ -52,7 +52,7 @@ func (runner *NSQRunner) runCommand(conn *nsqlib.Producer, topic string, message
 func (runner *NSQRunner) runFile(conn *nsqlib.Producer, topic string, file string) error {
 
 	log.Infof("executing nsq commands by file [ %s ]", file)
-	message, err := readFile(file, nil)
+	message, err := ReadFile(file, nil)
 	if err != nil {
 		return err
 	}

@@ -33,7 +33,7 @@ func load(scenario *Scenario) ([]*Scenario, error) {
 	for _, file := range scenario.Files {
 		log.Infof("loading scenario file %s", file)
 		nextScenario := &Scenario{}
-		if _, err := readFile(file, nextScenario); err != nil {
+		if _, err := ReadFile(file, nextScenario); err != nil {
 			return nil, err
 		}
 

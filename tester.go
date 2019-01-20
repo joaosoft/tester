@@ -33,7 +33,7 @@ func NewTester(options ...TesterOption) *Tester {
 
 	// load configuration file
 	appConfig := &AppConfig{}
-	if simpleConfig, err := manager.NewSimpleConfig(fmt.Sprintf("/config/app.%s.json", getEnv()), appConfig); err != nil {
+	if simpleConfig, err := manager.NewSimpleConfig(fmt.Sprintf("/config/app.%s.json", GetEnv()), appConfig); err != nil {
 		log.Error(err.Error())
 	} else if appConfig.Tester != nil {
 		pm.AddConfig("config_app", simpleConfig)
@@ -76,7 +76,7 @@ func (test *Tester) execute(files []string) error {
 	for _, file := range files {
 		log.Infof("loading test file %s", file)
 		testsOnFile := &TestFile{}
-		if _, err := readFile(file, testsOnFile); err != nil {
+		if _, err := ReadFile(file, testsOnFile); err != nil {
 			return err
 		}
 		test.tests[file] = testsOnFile
