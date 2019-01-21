@@ -3,6 +3,8 @@ package tester
 import (
 	"time"
 
+	"github.com/joaosoft/logger"
+
 	"encoding/json"
 
 	setup "github.com/joaosoft/setup"
@@ -35,6 +37,7 @@ type Tests struct {
 type BaseTest struct {
 	Name        string `json"name"`
 	Description string `json:"description"`
+	logger      logger.ILogger
 }
 
 // HttpTest ...

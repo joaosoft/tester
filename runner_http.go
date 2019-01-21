@@ -2,6 +2,7 @@ package tester
 
 import (
 	"fmt"
+	"github.com/joaosoft/logger"
 
 	"encoding/json"
 
@@ -10,11 +11,13 @@ import (
 
 type HttpRunner struct {
 	tests []HttpTest
+	logger logger.ILogger
 }
 
-func NewWebRunner(scenarioRunner *ScenarioRunner, tests []HttpTest) *HttpRunner {
+func (runner *Runner) NewWebRunner(scenarioRunner *ScenarioRunner, tests []HttpTest) *HttpRunner {
 	return &HttpRunner{
 		tests: tests,
+		logger: runner.logger,
 	}
 }
 
@@ -22,7 +25,7 @@ func (runner *HttpRunner) Run() error {
 	gateway := manager.NewSimpleGateway()
 
 	for _, test := range runner.tests {
-		log.Infof("running http tester with [ name: %s, description: %s ]", test.Name, test.Description)
+		runner.logger.Infof("running http tester with [ name: %s, description: %s ]", test.Name, test.Description)
 		var headers HttpHeaders
 		if test.Headers != nil {
 			headers = *test.Headers

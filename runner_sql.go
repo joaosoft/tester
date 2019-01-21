@@ -3,6 +3,7 @@ package tester
 import (
 	"database/sql"
 	"fmt"
+	"github.com/joaosoft/logger"
 
 	_ "github.com/go-sql-driver/mysql" // mysql driver
 	_ "github.com/lib/pq"              // postgres driver
@@ -10,17 +11,19 @@ import (
 
 type SQLRunner struct {
 	tests []SqlTest
+	logger logger.ILogger
 }
 
-func NewSQLRunner(scenarioRunner *ScenarioRunner, services []SqlTest) *SQLRunner {
+func (runner *Runner) NewSQLRunner(scenarioRunner *ScenarioRunner, services []SqlTest) *SQLRunner {
 	return &SQLRunner{
 		tests: services,
+		logger: runner.logger,
 	}
 }
 
 func (runner *SQLRunner) Run() error {
 	for _, test := range runner.tests {
-		log.Infof("running sql tester with [name: %s, description %s ]", test.Name, test.Description)
+		runner.logger.Infof("running sql tester with [name: %s, description %s ]", test.Name, test.Description)
 
 		var conn *sql.DB
 		var err error
@@ -58,7 +61,7 @@ func (runner *SQLRunner) runCommand(conn *sql.DB, command *string) (*sql.Rows, e
 }
 
 func (runner *SQLRunner) runFile(conn *sql.DB, file *string) (*sql.Rows, error) {
-	log.Infof("executing nsq commands by file [ %s ]", *file)
+	runner.logger.Infof("executing nsq commands by file [ %s ]", *file)
 
 	var query string
 	if bytes, err := ReadFile(*file, nil); err != nil {

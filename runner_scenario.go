@@ -1,6 +1,7 @@
 package tester
 
 import (
+	"github.com/joaosoft/logger"
 	setup "github.com/joaosoft/setup"
 )
 
@@ -14,31 +15,37 @@ type ISystem interface {
 type ScenarioRunner struct {
 	scenarios []*Scenario
 	setup     *setup.Setup
+	logger    logger.ILogger
+	runner    *Runner
 }
 
 // NewScenarioRunner ...
-func NewScenarioRunner(scenario *Scenario) (*ScenarioRunner, error) {
-	if scenarios, err := load(scenario); err != nil {
+func (runner *Runner) NewScenarioRunner(scenario *Scenario) (*ScenarioRunner, error) {
+	if scenarios, err := runner.load(scenario); err != nil {
 		return nil, err
 	} else {
-		return &ScenarioRunner{scenarios: scenarios}, nil
+		return &ScenarioRunner{
+			scenarios: scenarios,
+			logger:    runner.logger,
+			runner:    runner,
+		}, nil
 	}
 }
 
 // load recursive load scenario files inside every scenario
-func load(scenario *Scenario) ([]*Scenario, error) {
-	log.Info("loading scenarios...")
+func (runner *Runner) load(scenario *Scenario) ([]*Scenario, error) {
+	runner.logger.Info("loading scenarios...")
 	array := make([]*Scenario, 0)
 
 	for _, file := range scenario.Files {
-		log.Infof("loading scenario file %s", file)
+		runner.logger.Infof("loading scenario file %s", file)
 		nextScenario := &Scenario{}
 		if _, err := ReadFile(file, nextScenario); err != nil {
 			return nil, err
 		}
 
-		log.Infof("getting next scenario...")
-		if nextArray, err := load(nextScenario); err != nil {
+		runner.logger.Infof("getting next scenario...")
+		if nextArray, err := runner.load(nextScenario); err != nil {
 			return nil, err
 		} else {
 			array = append(array, nextArray...)
@@ -52,12 +59,12 @@ func load(scenario *Scenario) ([]*Scenario, error) {
 func (runner *ScenarioRunner) Setup() error {
 	var services []*setup.Services
 
-	log.Info("setup scenario...")
+	runner.logger.Info("setup scenario...")
 	for _, scenario := range runner.scenarios {
 		services = append(services, scenario.Setup...)
 	}
 
-	runner.setup = setup.NewSetup(setup.WithRunInBackground(true), setup.WithLogger(log), setup.WithServices(services))
+	runner.setup = setup.NewSetup(setup.WithRunInBackground(true), setup.WithLogger(runner.logger), setup.WithServices(services))
 	if err := runner.setup.Run(); err != nil {
 		return err
 	}

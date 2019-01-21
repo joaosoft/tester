@@ -2,6 +2,7 @@ package tester
 
 import (
 	"fmt"
+	"github.com/joaosoft/logger"
 	"strings"
 
 	redis "github.com/go-redis/redis"
@@ -9,17 +10,19 @@ import (
 
 type RedisRunner struct {
 	tests []RedisTest
+	logger logger.ILogger
 }
 
-func NewRedisRunner(scenarioRunner *ScenarioRunner, services []RedisTest) *RedisRunner {
+func (runner *Runner) NewRedisRunner(scenarioRunner *ScenarioRunner, services []RedisTest) *RedisRunner {
 	return &RedisRunner{
 		tests: services,
+		logger: runner.logger,
 	}
 }
 
 func (runner *RedisRunner) Run() error {
 	for _, test := range runner.tests {
-		log.Infof("running redis tester with [name: %s, description %s ]", test.Name, test.Description)
+		runner.logger.Infof("running redis tester with [name: %s, description %s ]", test.Name, test.Description)
 
 		var conn *redis.Client
 		var err error
@@ -41,7 +44,7 @@ func (runner *RedisRunner) Run() error {
 }
 
 func (runner *RedisRunner) runCommand(conn *redis.Client, command *string, arguments []string) error {
-	log.Infof("executing redis command [ %s ] arguments [ %s ]", command, arguments)
+	runner.logger.Infof("executing redis command [ %s ] arguments [ %s ]", command, arguments)
 	if err := conn.Do(*command, arguments).Err(); err != nil {
 		return err
 	}
@@ -49,13 +52,13 @@ func (runner *RedisRunner) runCommand(conn *redis.Client, command *string, argum
 }
 
 func (runner *RedisRunner) runFile(conn *redis.Client, file *string) error {
-	log.Infof("executing redis commands by file [ %s ]", *file)
+	runner.logger.Infof("executing redis commands by file [ %s ]", *file)
 
 	if lines, err := ReadFileLines(*file); err != nil {
 		for _, line := range lines {
 			command := strings.SplitN(line, " ", 1)
 			arguments := strings.Split(command[1], " ")
-			log.Infof("executing redis command [ %s ] arguments [ %s ]", command[0], arguments)
+			runner.logger.Infof("executing redis command [ %s ] arguments [ %s ]", command[0], arguments)
 			return runner.runCommand(conn, &command[0], arguments)
 		}
 	}

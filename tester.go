@@ -1,6 +1,7 @@
 package tester
 
 import (
+	"github.com/labstack/gommon/log"
 	"path/filepath"
 
 	"github.com/joaosoft/logger"
@@ -13,36 +14,37 @@ type Tester struct {
 	runner        IRunner
 	config        *TesterConfig
 	pm            *manager.Manager
+	logger        logger.ILogger
 	isLogExternal bool
 }
 
 // NewGoTest ...make
 func NewTester(options ...TesterOption) *Tester {
-	log.Info("starting Test Service")
 	config, simpleConfig, err := NewConfig()
-	pm := manager.NewManager(manager.WithRunInBackground(false))
 
-	test := &Tester{
+	service := &Tester{
 		tests:  make(map[string]*TestFile, 0),
+		pm:manager.NewManager(manager.WithRunInBackground(false)),
+		logger:              logger.NewLogDefault("tester", logger.DebugLevel),
 		config: &config.Tester,
 	}
 
-	if test.isLogExternal {
-		pm.Reconfigure(manager.WithLogger(log))
+	if service.isLogExternal {
+		service.pm.Reconfigure(manager.WithLogger(service.logger))
 	}
 
 	if err != nil {
 		log.Error(err.Error())
 	} else {
-		test.pm.AddConfig("config_app", simpleConfig)
+		service.pm.AddConfig("config_app", simpleConfig)
 		level, _ := logger.ParseLevel(config.Tester.Log.Level)
-		log.Debugf("setting log level to %s", level)
-		log.Reconfigure(logger.WithLevel(level))
+		service.logger.Debugf("setting log level to %s", level)
+		service.logger.Reconfigure(logger.WithLevel(level))
 	}
 
-	test.Reconfigure(options...)
+	service.Reconfigure(options...)
 
-	return test
+	return service
 }
 
 // Run ...
@@ -79,7 +81,7 @@ func (test *Tester) execute(files []string) error {
 		test.tests[file] = testsOnFile
 	}
 
-	test.runner = NewRunner(test.tests)
+	test.runner = test.NewRunner(test.tests)
 	if err := test.runner.Run(); err != nil {
 		log.Info("error running test files")
 		return err

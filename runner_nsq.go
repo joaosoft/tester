@@ -2,24 +2,26 @@ package tester
 
 import (
 	"fmt"
-
+	"github.com/joaosoft/logger"
 	nsqlib "github.com/nsqio/go-nsq"
 )
 
 type NSQRunner struct {
 	tests         []NsqTest
 	configuration *NsqConfig
+	logger logger.ILogger
 }
 
-func NewNSQRunner(scenarioRunner *ScenarioRunner, services []NsqTest) *NSQRunner {
+func (runner *Runner) NewNSQRunner(scenarioRunner *ScenarioRunner, services []NsqTest) *NSQRunner {
 	return &NSQRunner{
 		tests: services,
+		logger: runner.logger,
 	}
 }
 
 func (runner *NSQRunner) Run() error {
 	for _, test := range runner.tests {
-		log.Infof("running sql tester [ %s ] with description [ %s] ", test.Name, test.Description)
+		runner.logger.Infof("running sql tester [ %s ] with description [ %s] ", test.Name, test.Description)
 
 		var conn *nsqlib.Producer
 		var err error
@@ -41,7 +43,7 @@ func (runner *NSQRunner) Run() error {
 }
 
 func (runner *NSQRunner) runCommand(conn *nsqlib.Producer, topic string, message []byte) error {
-	log.Infof("executing nsq [topic: %s, message: %s]", topic, message)
+	runner.logger.Infof("executing nsq [topic: %s, message: %s]", topic, message)
 	if err := conn.Publish(topic, message); err != nil {
 		return err
 	}
@@ -51,7 +53,7 @@ func (runner *NSQRunner) runCommand(conn *nsqlib.Producer, topic string, message
 
 func (runner *NSQRunner) runFile(conn *nsqlib.Producer, topic string, file string) error {
 
-	log.Infof("executing nsq commands by file [ %s ]", file)
+	runner.logger.Infof("executing nsq commands by file [ %s ]", file)
 	message, err := ReadFile(file, nil)
 	if err != nil {
 		return err

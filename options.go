@@ -3,7 +3,7 @@ package tester
 import (
 	"strings"
 
-	logger "github.com/joaosoft/logger"
+	"github.com/joaosoft/logger"
 	"github.com/joaosoft/manager"
 )
 
@@ -32,7 +32,7 @@ func WithPath(path string) TesterOption {
 // WithLogger ...
 func WithLogger(logger logger.ILogger) TesterOption {
 	return func(tester *Tester) {
-		log = logger
+		tester.logger = logger
 		tester.isLogExternal = true
 	}
 }
@@ -40,7 +40,7 @@ func WithLogger(logger logger.ILogger) TesterOption {
 // WithLogLevel ...
 func WithLogLevel(level logger.Level) TesterOption {
 	return func(tester *Tester) {
-		log.SetLevel(level)
+		tester.logger.SetLevel(level)
 	}
 }
 

@@ -1,6 +1,9 @@
 package tester
 
-import "time"
+import (
+	"github.com/joaosoft/logger"
+	"time"
+)
 
 type IRunner interface {
 	Run() error
@@ -9,20 +12,22 @@ type IRunner interface {
 type Runner struct {
 	testFiles map[string]*TestFile
 	runners   []IRunner
+	logger logger.ILogger
 }
 
-func NewRunner(testFiles map[string]*TestFile) *Runner {
+func (setup *Tester) NewRunner(testFiles map[string]*TestFile) *Runner {
 	return &Runner{
 		testFiles: testFiles,
 		runners:   make([]IRunner, 0),
+		logger: setup.logger,
 	}
 }
 
 func (runner *Runner) Run() error {
 	for testFileName, testFile := range runner.testFiles {
-		log.Infof("running tester file %s", testFileName)
+		runner.logger.Infof("running tester file %s", testFileName)
 
-		scenarioRunner, err := NewScenarioRunner(&testFile.Scenario)
+		scenarioRunner, err := runner.NewScenarioRunner(&testFile.Scenario)
 		if err != nil {
 			return err
 		}
