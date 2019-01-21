@@ -1,8 +1,9 @@
 package tester
 
 import (
-	"github.com/labstack/gommon/log"
 	"path/filepath"
+
+	"github.com/labstack/gommon/log"
 
 	"github.com/joaosoft/logger"
 	"github.com/joaosoft/manager"
@@ -24,8 +25,8 @@ func NewTester(options ...TesterOption) *Tester {
 
 	service := &Tester{
 		tests:  make(map[string]*TestFile, 0),
-		pm:manager.NewManager(manager.WithRunInBackground(false)),
-		logger:              logger.NewLogDefault("tester", logger.DebugLevel),
+		pm:     manager.NewManager(manager.WithRunInBackground(false)),
+		logger: logger.NewLogDefault("tester", logger.WarnLevel),
 		config: &config.Tester,
 	}
 
