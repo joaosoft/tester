@@ -27,7 +27,7 @@ func NewTester(options ...TesterOption) *Tester {
 		tests:  make(map[string]*TestFile, 0),
 		pm:     manager.NewManager(manager.WithRunInBackground(false)),
 		logger: logger.NewLogDefault("tester", logger.WarnLevel),
-		config: &config.Tester,
+		config: config.Tester,
 	}
 
 	if service.isLogExternal {
@@ -36,7 +36,7 @@ func NewTester(options ...TesterOption) *Tester {
 
 	if err != nil {
 		log.Error(err.Error())
-	} else {
+	} else if config.Tester != nil {
 		service.pm.AddConfig("config_app", simpleConfig)
 		level, _ := logger.ParseLevel(config.Tester.Log.Level)
 		service.logger.Debugf("setting log level to %s", level)
