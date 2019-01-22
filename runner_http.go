@@ -2,6 +2,7 @@ package tester
 
 import (
 	"fmt"
+
 	"github.com/joaosoft/logger"
 
 	"encoding/json"
@@ -10,19 +11,21 @@ import (
 )
 
 type HttpRunner struct {
-	tests []HttpTest
+	tests  []HttpTest
+	pm     *manager.Manager
 	logger logger.ILogger
 }
 
 func (runner *Runner) NewWebRunner(scenarioRunner *ScenarioRunner, tests []HttpTest) *HttpRunner {
 	return &HttpRunner{
-		tests: tests,
+		tests:  tests,
 		logger: runner.logger,
+		pm:     runner.pm,
 	}
 }
 
 func (runner *HttpRunner) Run() error {
-	gateway := manager.NewSimpleGateway()
+	gateway := runner.pm.NewSimpleGateway()
 
 	for _, test := range runner.tests {
 		runner.logger.Infof("running http tester with [ name: %s, description: %s ]", test.Name, test.Description)

@@ -1,8 +1,10 @@
 package tester
 
 import (
-	"github.com/joaosoft/logger"
 	"time"
+
+	"github.com/joaosoft/logger"
+	"github.com/joaosoft/manager"
 )
 
 type IRunner interface {
@@ -12,14 +14,16 @@ type IRunner interface {
 type Runner struct {
 	testFiles map[string]*TestFile
 	runners   []IRunner
-	logger logger.ILogger
+	pm        *manager.Manager
+	logger    logger.ILogger
 }
 
 func (setup *Tester) NewRunner(testFiles map[string]*TestFile) *Runner {
 	return &Runner{
 		testFiles: testFiles,
 		runners:   make([]IRunner, 0),
-		logger: setup.logger,
+		pm:        setup.pm,
+		logger:    setup.logger,
 	}
 }
 
