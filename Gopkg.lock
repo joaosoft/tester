@@ -90,7 +90,7 @@
   branch = "master"
   name = "github.com/joaosoft/manager"
   packages = ["."]
-  revision = "a7f8ae2d4839410a77e685d38421d611f8f4978e"
+  revision = "18b4eb1be4cbb9e55a90e05f5e2ebc4db0afb15f"
 
 [[projects]]
   branch = "master"
@@ -319,6 +319,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c68b6379621ddf9f5a2dcd6ad79bef343d62ad77f67ccd03000120ca8ec3b213"
+  inputs-digest = "e7d6bb2bc0ae2bdfef701cd3f2c208ed0a0e68f5e8ad6dd6f1a615ef14b7df8f"
   solver-name = "gps-cdcl"
   solver-version = 1
