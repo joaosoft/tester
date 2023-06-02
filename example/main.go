@@ -1,7 +1,7 @@
 package main
 
 import (
-	"tester"
+	"github.com/joaosoft/tester"
 	"time"
 
 	logger "github.com/joaosoft/logger"
