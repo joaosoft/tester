@@ -1,14 +1,13 @@
 package main
 
 import (
+	"github.com/joaosoft/logger"
 	"github.com/joaosoft/tester"
 	"time"
-
-	logger "github.com/joaosoft/logger"
 )
 
 func main() {
-	var log = logger.NewLogDefault("tester", logger.InfoLevel)
+	var log = logger.NewLogDefault("tester", logger.LevelInfo)
 
 	start := time.Now()
 	test := tester.NewTester(tester.WithPath("/example"))
