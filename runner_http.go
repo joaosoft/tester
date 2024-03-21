@@ -2,6 +2,7 @@ package tester
 
 import (
 	"fmt"
+	"github.com/joaosoft/web"
 
 	"github.com/joaosoft/logger"
 
@@ -25,7 +26,10 @@ func (runner *Runner) NewWebRunner(scenarioRunner *ScenarioRunner, tests []HttpT
 }
 
 func (runner *HttpRunner) Run() error {
-	gateway := runner.pm.NewSimpleGateway()
+	gateway, err := runner.pm.NewSimpleGateway()
+	if err != nil {
+		return fmt.Errorf("error running http tester [ error: %s ]", err)
+	}
 
 	for _, test := range runner.tests {
 		runner.logger.Infof("running http tester with [ name: %s, description: %s ]", test.Name, test.Description)
@@ -39,7 +43,7 @@ func (runner *HttpRunner) Run() error {
 			return fmt.Errorf("error executing http tester [ error: %s ]", err)
 		}
 
-		status, response, err := gateway.Request(test.Method, test.Host, test.Route, headers, body)
+		status, response, err := gateway.Request(test.Method, test.Host, test.Route, string(web.ContentTypeApplicationJSON), headers, body)
 
 		if err != nil {
 			return fmt.Errorf("error executing http tester [ error: %s ]", err)

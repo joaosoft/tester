@@ -9,6 +9,7 @@ require (
 	github.com/joaosoft/manager v0.0.0-20240319134643-df707ca6b9b1
 	github.com/joaosoft/mapper v0.0.0-20240319152032-fb54b78b6438
 	github.com/joaosoft/setup v0.0.3-0.20240319155759-36f3e6594c69
+	github.com/joaosoft/web v0.0.0-20230531143830-cd31d8a8c35e
 	github.com/labstack/gommon v0.4.0
 	github.com/lib/pq v1.10.9
 	github.com/nsqio/go-nsq v1.1.0
@@ -26,7 +27,6 @@ require (
 	github.com/joaosoft/color v0.0.0-20230531140514-b61c18d53e39 // indirect
 	github.com/joaosoft/errors v0.0.0-20230531141818-ebb38600b462 // indirect
 	github.com/joaosoft/go-manager v0.0.0-20230531145319-70475d3afc54 // indirect
-	github.com/joaosoft/web v0.0.0-20230531143830-cd31d8a8c35e // indirect
 	github.com/joaosoft/writers v0.0.0-20230531142123-83465954fcda // indirect
 	github.com/labstack/echo v3.3.10+incompatible // indirect
 	github.com/magiconair/properties v1.8.7 // indirect

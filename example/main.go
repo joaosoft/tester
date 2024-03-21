@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	var log = logger.NewLogDefault("tester", logger.LevelInfo)
+	var log = logger.NewLogDefault("tester", logger.InfoLevel)
 
 	start := time.Now()
 	test := tester.NewTester(tester.WithPath("/example"))
